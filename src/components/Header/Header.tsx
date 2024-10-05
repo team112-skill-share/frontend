@@ -5,7 +5,11 @@ export const Header = () => {
     <header className={styles.header}>
       {/* <div className={styles.container}> */}
       <a href="/">
-        <img className={styles.img} src="/img/skill-share-logo.svg" alt="" />
+        <img
+          className={styles.img}
+          src={`${process.env.PUBLIC_URL}/img/skill-share-logo.svg`}
+          alt="logo"
+        />
       </a>
 
       <div className={styles.rightside}>

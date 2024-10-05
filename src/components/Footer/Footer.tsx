@@ -33,7 +33,7 @@ export const Footer = () => {
         <div className={styles.rightside}>
           <img
             className={styles.logo}
-            src="/img/skill-share-logo.svg"
+            src={`${process.env.PUBLIC_URL}/img/skill-share-logo.svg`}
             alt="logo"
           />
 
@@ -42,7 +42,7 @@ export const Footer = () => {
               <a className={styles.social_link} href="https://facebook.com">
                 <img
                   className={styles.social_facebook}
-                  src="/img/icons/facebook.svg"
+                  src={`${process.env.PUBLIC_URL}/img/icons/facebook.svg`}
                   alt="Facebook"
                 />
               </a>
@@ -52,7 +52,7 @@ export const Footer = () => {
               <a className={styles.social_link} href="https://telegram.com">
                 <img
                   className={styles.social_telegram}
-                  src="/img/icons/telegram.svg"
+                  src={`${process.env.PUBLIC_URL}/img/icons/telegram.svg`}
                   alt="Telegram"
                 />
               </a>
@@ -62,7 +62,7 @@ export const Footer = () => {
               <a className={styles.social_link} href="https://instagram.com">
                 <img
                   className={styles.social_instagram}
-                  src="/img/icons/instagram.svg"
+                  src={`${process.env.PUBLIC_URL}/img/icons/instagram.svg`}
                   alt="Instagram"
                 />
               </a>
