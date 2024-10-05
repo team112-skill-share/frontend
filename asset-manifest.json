@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/frontend/static/css/main.60ebe582.css",
+    "main.js": "/frontend/static/js/main.255272e2.js",
+    "static/media/us-flag.svg": "/frontend/static/media/us-flag.a7c104c31f9793f07dd4.svg",
+    "static/media/comments.svg": "/frontend/static/media/comments.2fec10166a8e53db09da.svg",
+    "static/media/student.svg": "/frontend/static/media/student.185948903932a6c6e12e.svg",
+    "static/media/star-active.svg": "/frontend/static/media/star-active.7e24221d58ba6a8fb17f.svg",
+    "static/media/list.svg": "/frontend/static/media/list.768bddaf2b42945f655f.svg",
+    "static/media/openshift.svg": "/frontend/static/media/openshift.c8da787ad49952dbae06.svg",
+    "index.html": "/frontend/index.html",
+    "static/media/arrow-right.svg": "/frontend/static/media/arrow-right.962e2eb8e9e9789b7935.svg",
+    "static/media/arrow-unactive.svg": "/frontend/static/media/arrow-unactive.4ba7517f6df4b71d6427.svg",
+    "static/media/account.svg": "/frontend/static/media/account.3790f260d62c7f8307a7.svg",
+    "static/media/like.svg": "/frontend/static/media/like.d91592ae262769e9f8cb.svg",
+    "static/media/reviews.svg": "/frontend/static/media/reviews.36b45128883c2105ee77.svg",
+    "static/media/search.svg": "/frontend/static/media/search.05340eb064be24ed6f2d.svg",
+    "static/media/heart.svg": "/frontend/static/media/heart.01f2652a1dcdc7f73930.svg",
+    "static/media/arrow.svg": "/frontend/static/media/arrow.de3d414d7679f51ab82a.svg",
+    "main.60ebe582.css.map": "/frontend/static/css/main.60ebe582.css.map",
+    "main.255272e2.js.map": "/frontend/static/js/main.255272e2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.60ebe582.css",
+    "static/js/main.255272e2.js"
+  ]
+}
