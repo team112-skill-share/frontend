@@ -70,7 +70,7 @@ export const HomePage = () => {
 
         <img
           className={styles.about_img}
-          src="/img/homepage/about-us.png"
+          src={`${process.env.PUBLIC_URL}/img/homepage/about-us.png`}
           alt="about us"
         />
       </section>
@@ -117,7 +117,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -150,7 +150,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -183,7 +183,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -216,7 +216,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -249,7 +249,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -282,7 +282,7 @@ export const HomePage = () => {
           <article className={styles.course}>
             <img
               className={styles.course_img}
-              src="/img/homepage/eduquest.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="eduquest"
             />
 
@@ -329,7 +329,7 @@ export const HomePage = () => {
           <article className={styles.article}>
             <img
               className={styles.article_img}
-              src="/img/homepage/article.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/article.png`}
               alt="article"
             />
 
@@ -350,7 +350,7 @@ export const HomePage = () => {
           <article className={styles.article}>
             <img
               className={styles.article_img}
-              src="/img/homepage/article-2.png"
+              src={`${process.env.PUBLIC_URL}/img/homepage/article-2.png`}
               alt="article"
             />
 
