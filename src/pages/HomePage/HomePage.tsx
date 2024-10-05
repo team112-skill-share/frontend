@@ -8,7 +8,7 @@ export const HomePage = () => {
         <div className={styles.start_content}>
           <img
             src="/img/homepage/home-start-1.png"
-            alt="woman sit at the table"
+            alt="woman sit at the table??????????????"
             className={styles.start_img}
           />
 
