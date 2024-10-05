@@ -1,0 +1,490 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+
+  .start {
+    background-color: #d6e7ef;
+    height: 90vh;
+    border-bottom-right-radius: 200px;
+    border-bottom-left-radius: 200px;
+
+    &_content {
+      padding: 40px 108px;
+      display: flex;
+    }
+
+    &_main {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+
+      .title {
+        font-family: Libre Baskerville;
+        font-size: 56px;
+        font-weight: 400;
+        line-height: 72px;
+        text-align: left;
+        color: #010010;
+
+        &_company {
+          color: #275da4;
+        }
+      }
+
+      .search {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        &_input {
+          position: relative;
+          height: 56px;
+
+          .input {
+            height: 100%;
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #4a5354;
+            border-radius: 12px;
+            background: none;
+
+            &::placeholder {
+              color: #bababa;
+              font-family: Poppins;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 26px;
+            }
+          }
+
+          .button {
+            position: absolute;
+            right: 0;
+            background: #275da4;
+            border: 0;
+            border-radius: 12px;
+            height: 100%;
+            width: 99px;
+            background-image: url(../../../public/img/icons/search.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+
+        &_list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        &_item {
+          display: inline-block;
+          padding: 15px 16px;
+          color: #242424;
+          border: 1px solid #242424;
+        }
+      }
+    }
+  }
+
+  .about {
+    display: flex;
+    justify-content: space-between;
+    gap: 125px;
+    padding-inline: 108px;
+
+    &_left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .text {
+        &_company {
+          color: #275da4;
+        }
+      }
+
+      .button {
+        all: unset;
+        border: 2px solid #868e96;
+        text-transform: uppercase;
+        text-align: center;
+        height: 56px;
+      }
+    }
+  }
+
+  .statistics {
+    background-color: #010010;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    padding: 56px 108px;
+
+    &_content {
+      display: flex;
+      justify-content: space-between;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+
+        // &_1 {
+        //   position: relative;
+        //   top: 60px;
+        // }
+
+        // &_2 {
+        //   position: relative;
+        //   top: 40px;
+        // }
+
+        // &_3 {
+        //   position: relative;
+        //   top: 20px;
+        // }
+
+        // &_4 {
+        //   position: relative;
+        // }
+
+        &_logo {
+          width: 64px;
+          height: 64px;
+          padding: 12px;
+          border: 1px solid #e9eeee;
+          border-radius: 32px;
+
+          &_satisfied {
+            background-image: url(../../../public/img/icons/like.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          &_platform {
+            background-image: url(../../../public/img/icons/openshift.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          &_reviews {
+            background-image: url(../../../public/img/icons/reviews.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          &_courses {
+            background-image: url(../../../public/img/icons/student.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+
+        &_text {
+          font-family: Libre Baskerville;
+          font-size: 20px;
+          font-weight: 400;
+          line-height: 30px;
+          color: #e9eeee;
+          text-transform: uppercase;
+        }
+
+        &_num {
+          font-family: Libre Baskerville;
+          font-size: 42px;
+          font-weight: 500;
+          line-height: 36px;
+          padding: 16px 64px;
+          // padding-block: 16px;
+          // width: 292px;
+          text-align: center;
+          background: linear-gradient(90deg, #9fcfe8 28%, #275da4 100%);
+        }
+      }
+    }
+  }
+
+  .popular {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        //styleName: H3;
+        font-family: Libre Baskerville;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 40px;
+        text-align: left;
+      }
+
+      .arrows {
+        display: flex;
+        gap: 8px;
+
+        &_left {
+          all: unset;
+          background-image: url(../../../public/img/icons/arrow-right.svg);
+          transform: rotateY(180deg);
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 16px;
+          height: 16px;
+        }
+
+        &_right {
+          all: unset;
+          background-image: url(../../../public/img/icons/arrow-right.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    &_content {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+
+      .course {
+        padding: 20px 16px;
+        border: 1px solid #9fcfe8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+
+        &_img {
+          width: 220px;
+          height: 58px;
+        }
+
+        &_details {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+
+          .rating {
+            display: flex;
+            gap: 8px;
+
+            .stairs {
+              display: flex;
+              gap: 4px;
+
+              &_text {
+                //styleName: Main text;
+                font-family: Poppins;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 26px;
+                text-align: left;
+              }
+
+              &_block {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+
+                .star {
+                  background-image: url(../../../public/img/icons/star-active.svg);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  width: 16px;
+                  height: 16px;
+                }
+              }
+            }
+
+            .comments {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+
+              &_icon {
+                background-image: url(../../../public/img/icons/comments.svg);
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 24px;
+                height: 24px;
+              }
+
+              &_count {
+                //styleName: Main text;
+                font-family: Poppins;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 26px;
+                text-align: center;
+              }
+            }
+          }
+
+          .countCourses {
+            all: unset;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            &_text {
+              //styleName: Main text;
+              font-family: Poppins;
+              font-size: 16px;
+              font-weight: 400;
+              line-height: 26px;
+              text-align: center;
+            }
+
+            &_arrow {
+              background-image: url(../../../public/img/icons/arrow-unactive.svg);
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .articles {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        font-family: Libre Baskerville;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 40px;
+      }
+
+      .seeall {
+        all: unset;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &_text {
+          text-decoration: underline;
+        }
+
+        &_arrow {
+          background-image: url(../../../public/img/icons/arrow-right.svg);
+          background-position: center;
+          background-repeat: none;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .content {
+      display: flex;
+      gap: 24px;
+
+      .article {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 600px;
+        border: 1px solid #bababa;
+
+        &_img {
+          width: 100%;
+          height: 276px;
+          object-fit: cover;
+        }
+
+        &_text {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding-inline: 31px;
+          padding-bottom: 6px;
+
+          &_title {
+            //styleName: H4;
+            font-family: Libre Baskerville;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 30px;
+            text-transform: uppercase;
+          }
+
+          &_description {
+            //styleName: Main text;
+            font-family: Poppins;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 26px;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+
+  .reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        font-family: Libre Baskerville;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 40px;
+      }
+
+      .seeall {
+        all: unset;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &_text {
+          text-decoration: underline;
+        }
+
+        &_arrow {
+          background-image: url(../../../public/img/icons/arrow-right.svg);
+          background-position: center;
+          background-repeat: none;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .content {
+      display: flex;
+      gap: 24px;
+      .review {
+        width: 600px;
+        height: 336px;
+        border: 1px solid #4a5354;
+      }
+    }
+  }
+}

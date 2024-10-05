@@ -1,0 +1,106 @@
+.header {
+  background-color: #010010;
+  padding-inline: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  // max-width: 1200px;
+
+  .container {
+    // display: flex;
+    // justify-content: space-between;
+    // margin: 0 auto;
+    // max-width: 1200px;
+  }
+
+  .img {
+    padding-block: 9px;
+  }
+
+  .rightside {
+    display: flex;
+    justify-content: space-between;
+    gap: 130px;
+
+    .nav {
+      height: 100%;
+
+      &_list {
+        height: inherit;
+        display: flex;
+        gap: 31px;
+        align-items: center;
+        color: #e9eeee;
+      }
+
+      &_item {
+        cursor: pointer;
+      }
+    }
+
+    .logos {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .lang {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        cursor: pointer;
+
+        &_icon {
+          background-image: url(../../../public/img/icons/us-flag.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 24px;
+          width: 24px;
+        }
+
+        &_arrow {
+          background-image: url(../../../public/img/icons/arrow.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 24px;
+          width: 24px;
+        }
+      }
+
+      .like {
+        background-image: url(../../../public/img/icons/heart.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+        cursor: pointer;
+      }
+
+      .right {
+        display: flex;
+        gap: 8px;
+        border: 1px solid #bababa;
+        border-radius: 12px;
+        padding: 8px 16px;
+
+        .menu {
+          background-image: url(../../../public/img/icons/list.svg);
+          fill: #bababa;
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 24px;
+          width: 24px;
+          cursor: pointer;
+        }
+
+        .account {
+          background-image: url(../../../public/img/icons/account.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          height: 24px;
+          width: 24px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
