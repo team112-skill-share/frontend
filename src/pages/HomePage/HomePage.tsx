@@ -7,8 +7,8 @@ export const HomePage = () => {
       <section className={styles.start}>
         <div className={styles.start_content}>
           <img
-            src="/img/homepage/home-start-1.png"
-            alt="woman sit at the table??????????????"
+            src={`${process.env.PUBLIC_URL}/img/homepage/home-start-1.png`}
+            alt="woman sit at the table"
             className={styles.start_img}
           />
 
