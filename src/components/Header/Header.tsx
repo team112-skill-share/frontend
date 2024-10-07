@@ -1,16 +1,24 @@
+import { useState } from "react";
 import styles from "./Header.module.scss";
+import { Link } from "react-router-dom";
 
-export const Header = () => {
+type Props = {
+  handleSetLoginTrue: () => void;
+};
+
+export const Header: React.FC<Props> = ({ handleSetLoginTrue }) => {
+  const [isMenuActive, setIsMenuActive] = useState(false);
+
   return (
     <header className={styles.header}>
       {/* <div className={styles.container}> */}
-      <a href="/">
+      <Link to="/home">
         <img
           className={styles.img}
           src={`${process.env.PUBLIC_URL}/img/skill-share-logo.svg`}
           alt="logo"
         />
-      </a>
+      </Link>
 
       <div className={styles.rightside}>
         <nav className={styles.nav}>
@@ -31,7 +39,19 @@ export const Header = () => {
 
           <div className={styles.right}>
             <div className={styles.menu} />
-            <div className={styles.account} />
+            <div
+              className={styles.account}
+              onClick={() => setIsMenuActive(!isMenuActive)}
+            >
+              {isMenuActive && (
+                <div className={styles.account_active}>
+                  <Link to="login" className={styles.login}>
+                    <div className={styles.login_icon} />
+                    <span className={styles.login_text}>Log in</span>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
