@@ -380,8 +380,97 @@ export const HomePage = () => {
         </div>
 
         <div className={styles.content}>
-          <article className={styles.review}></article>
-          <article className={styles.review}></article>
+          <article className={styles.review}>
+            <div className={styles.author}>
+              <div className={styles.author_data}>
+                <img
+                  className={styles.author_data_img}
+                  src={`${process.env.PUBLIC_URL}/img/homepage/review_img.png`}
+                  alt="David Anderson"
+                />
+
+                <span className={styles.author_data_name}>David Anderson</span>
+              </div>
+
+              <span className={styles.author_date}>27.09.2024</span>
+            </div>
+
+            <div className={styles.details}>
+              <div className={styles.details_about}>
+                <div className={styles.company}>
+                  <img
+                    className={styles.logo}
+                    src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
+                    alt="eduquest logo"
+                  />
+
+                  <span className={styles.description}>
+                    “Good courses great approach to learning!”
+                  </span>
+                </div>
+
+                <div className={styles.stars}>
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                </div>
+              </div>
+
+              <p className={styles.details_text}>
+                I took the course "Graphic Design" and was very pleased. The
+                information was presented in a very interesting way, which
+                allowed me to feel progress with each lesson.
+              </p>
+            </div>
+          </article>
+
+          <article className={styles.review}>
+            <div className={styles.author}>
+              <div className={styles.author_data}>
+                <img
+                  className={styles.author_data_img}
+                  src={`${process.env.PUBLIC_URL}/img/homepage/review_img.png`}
+                  alt="David Anderson"
+                />
+
+                <span className={styles.author_data_name}>David Anderson</span>
+              </div>
+
+              <span className={styles.author_date}>27.09.2024</span>
+            </div>
+
+            <div className={styles.details}>
+              <div className={styles.details_about}>
+                <div className={styles.company}>
+                  <img
+                    className={styles.logo}
+                    src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
+                    alt="eduquest logo"
+                  />
+
+                  <span className={styles.description}>
+                    “Good courses great approach to learning!”
+                  </span>
+                </div>
+
+                <div className={styles.stars}>
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                  <div className={styles.star} />
+                </div>
+              </div>
+
+              <p className={styles.details_text}>
+                I took the course "Graphic Design" and was very pleased. The
+                information was presented in a very interesting way, which
+                allowed me to feel progress with each lesson.
+              </p>
+            </div>
+          </article>
         </div>
       </section>
     </div>
