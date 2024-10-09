@@ -7,6 +7,7 @@ import {
 import { App } from "./App";
 import { HomePage } from "./pages/HomePage";
 import { Modal } from "./components/Modal";
+import { Courses } from "./pages/Courses";
 
 export const Root = () => {
   return (
@@ -17,6 +18,7 @@ export const Root = () => {
           <Route path="home" element={<Navigate to={"/"} replace />} />
           <Route path="login" element={<Modal type="login" />} />
           <Route path="register" element={<Modal type="register" />} />
+          <Route path="courses" element={<Courses />} />
         </Route>
       </Routes>
     </Router>

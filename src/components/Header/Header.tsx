@@ -21,7 +21,9 @@ export const Header = () => {
       <div className={styles.rightside}>
         <nav className={styles.nav}>
           <ul className={styles.nav_list}>
-            <li className={styles.nav_item}>Courses</li>
+            <Link to="courses" className={styles.nav_link}>
+              <li className={styles.nav_item}>Courses</li>
+            </Link>
             <li className={styles.nav_item}>About us</li>
             <li className={styles.nav_item}>Work with us</li>
           </ul>

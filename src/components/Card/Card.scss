@@ -1,0 +1,204 @@
+.card {
+  width: 600px;
+  padding: 16px;
+  border: 1px solid #275da4;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &_left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &_icon {
+          background-position: center;
+          background-repeat: no-repeat;
+          width: 24px;
+          height: 24px;
+
+          &-star {
+            background-image: url(../../../public/img/icons/star-active.svg);
+          }
+
+          &-comment {
+            background-image: url(../../../public/img/icons/one-comment.svg);
+          }
+        }
+
+        &_num {
+          //styleName: Main text;
+          font-family: Poppins;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 26px;
+          text-align: center;
+        }
+      }
+    }
+
+    &_right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .icon {
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+
+        &-share {
+          background-image: url(../../../public/img/icons/card-share.svg);
+        }
+
+        &-like {
+          background-image: url(../../../public/img/icons/card-like.svg);
+        }
+      }
+    }
+  }
+
+  .center {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .description {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+
+      .image {
+        border: 1px solid #9fcfe8;
+        width: 270px;
+        height: 240px;
+        object-fit: contain;
+      }
+
+      .name {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .title {
+          //styleName: H5;
+          font-family: Libre Baskerville;
+          font-size: 20px;
+          font-weight: 400;
+          line-height: 30px;
+          text-transform: uppercase;
+        }
+
+        .logo {
+          width: fit-content;
+          height: 32px;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+
+      .specs {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .spec {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          &_icon {
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 24px;
+
+            &-time {
+              background-image: url(../../../public/img/icons/time.svg);
+            }
+
+            &-group {
+              background-image: url(../../../public/img/icons/group.svg);
+            }
+
+            &-certificate {
+              background-image: url(../../../public/img/icons/cetrificate.svg);
+            }
+          }
+
+          &_text {
+            //styleName: Secondary text;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;
+          }
+        }
+      }
+
+      .price {
+        text-wrap: nowrap;
+        align-self: flex-end;
+
+        //styleName: H3;
+        font-family: Libre Baskerville;
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 42px;
+        letter-spacing: 0.01em;
+
+        &_from {
+          //styleName: Secondary text;
+          font-family: Poppins;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+
+  .go-button {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    width: 400px;
+    padding-block: 16px;
+    background-color: #275da4;
+    color: #e9eeee;
+    text-transform: uppercase;
+
+    //styleName: Button text;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+
+    .icon {
+      background-image: url(../../../public/img/icons/vector-arrow.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

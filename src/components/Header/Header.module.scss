@@ -33,8 +33,10 @@
         color: #e9eeee;
       }
 
-      &_item {
-        cursor: pointer;
+      &_link {
+        display: flex;
+        text-decoration: none;
+        color: #e9eeee;
       }
     }
 
