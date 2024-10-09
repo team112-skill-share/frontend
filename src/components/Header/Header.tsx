@@ -1,18 +1,16 @@
 import { useState } from "react";
 import styles from "./Header.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-type Props = {
-  handleSetLoginTrue: () => void;
-};
-
-export const Header: React.FC<Props> = ({ handleSetLoginTrue }) => {
+export const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+
+  const location = useLocation();
 
   return (
     <header className={styles.header}>
       {/* <div className={styles.container}> */}
-      <Link to="/home">
+      <Link to="home">
         <img
           className={styles.img}
           src={`${process.env.PUBLIC_URL}/img/skill-share-logo.svg`}
@@ -45,7 +43,11 @@ export const Header: React.FC<Props> = ({ handleSetLoginTrue }) => {
             >
               {isMenuActive && (
                 <div className={styles.account_active}>
-                  <Link to="login" className={styles.login}>
+                  <Link
+                    to="login"
+                    className={styles.login}
+                    state={{ backgroundLocation: location }}
+                  >
                     <div className={styles.login_icon} />
                     <span className={styles.login_text}>Log in</span>
                   </Link>

@@ -18,7 +18,9 @@
     padding: 40px 80px;
     display: flex;
     flex-direction: column;
-    gap: 8px; //try 16
+    gap: 8px;
+    max-height: 100vh;
+    object-fit: contain;
 
     .title {
       display: flex;
