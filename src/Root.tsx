@@ -8,6 +8,7 @@ import { App } from "./App";
 import { HomePage } from "./pages/HomePage";
 import { Modal } from "./components/Modal";
 import { Courses } from "./pages/Courses";
+import { WorkWithUs } from "./pages/WorkWithUs";
 
 export const Root = () => {
   return (
@@ -19,6 +20,7 @@ export const Root = () => {
           <Route path="login" element={<Modal type="login" />} />
           <Route path="register" element={<Modal type="register" />} />
           <Route path="courses" element={<Courses />} />
+          <Route path="work-with-us" element={<WorkWithUs />} />
         </Route>
       </Routes>
     </Router>

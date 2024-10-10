@@ -24,8 +24,12 @@ export const Header = () => {
             <Link to="courses" className={styles.nav_link}>
               <li className={styles.nav_item}>Courses</li>
             </Link>
-            <li className={styles.nav_item}>About us</li>
-            <li className={styles.nav_item}>Work with us</li>
+            <Link to="/" className={styles.nav_link}>
+              <li className={styles.nav_item}>About us</li>
+            </Link>
+            <Link to="work-with-us" className={styles.nav_link}>
+              <li className={styles.nav_item}>Work with us</li>
+            </Link>
           </ul>
         </nav>
 
