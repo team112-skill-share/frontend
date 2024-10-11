@@ -1,3 +1,4 @@
+import './index.css';
 import {
   HashRouter as Router,
   Routes,
@@ -9,6 +10,7 @@ import { HomePage } from "./pages/HomePage";
 import { Modal } from "./components/Modal";
 import { Courses } from "./pages/Courses";
 import { WorkWithUs } from "./pages/WorkWithUs";
+import { Profile } from "./pages/Profile";
 
 export const Root = () => {
   return (
@@ -21,6 +23,7 @@ export const Root = () => {
           <Route path="register" element={<Modal type="register" />} />
           <Route path="courses" element={<Courses />} />
           <Route path="work-with-us" element={<WorkWithUs />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </Router>

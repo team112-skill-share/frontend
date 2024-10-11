@@ -125,10 +125,10 @@
               }
 
               .input {
-                all: unset;
+                background: none;
                 border: 1px solid #010010;
                 border-radius: 10px;
-                height: 40px;
+                height: 56px;
                 padding: 8px 16px;
                 line-height: 40px;
 
@@ -150,7 +150,7 @@
             }
 
             .button {
-              all: unset;
+              border: none;
               background-color: #275da4;
               color: #e9eeee;
               padding-block: 8px;

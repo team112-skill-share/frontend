@@ -1,8 +1,6 @@
 import "./App.scss";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-// import { HomePage } from "./pages/HomePage";
-// import { Modal } from "./components/Modal";
 import { Outlet } from "react-router-dom";
 
 export const App = () => {
