@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/frontend/static/css/main.a44a9322.css",
-    "main.js": "/frontend/static/js/main.47237f36.js",
+    "main.css": "/frontend/static/css/main.a08e16a6.css",
+    "main.js": "/frontend/static/js/main.c2c490fc.js",
     "static/media/group.svg": "/frontend/static/media/group.30851d240b37c15198a0.svg",
     "static/media/us-flag.svg": "/frontend/static/media/us-flag.a7c104c31f9793f07dd4.svg",
     "static/media/time.svg": "/frontend/static/media/time.bf8346b5682444d46fbc.svg",
@@ -27,11 +27,11 @@
     "static/media/heart.svg": "/frontend/static/media/heart.01f2652a1dcdc7f73930.svg",
     "static/media/vector-arrow.svg": "/frontend/static/media/vector-arrow.115da76d91bbea15f047.svg",
     "static/media/arrow.svg": "/frontend/static/media/arrow.de3d414d7679f51ab82a.svg",
-    "main.a44a9322.css.map": "/frontend/static/css/main.a44a9322.css.map",
-    "main.47237f36.js.map": "/frontend/static/js/main.47237f36.js.map"
+    "main.a08e16a6.css.map": "/frontend/static/css/main.a08e16a6.css.map",
+    "main.c2c490fc.js.map": "/frontend/static/js/main.c2c490fc.js.map"
   },
   "entrypoints": [
-    "static/css/main.a44a9322.css",
-    "static/js/main.47237f36.js"
+    "static/css/main.a08e16a6.css",
+    "static/js/main.c2c490fc.js"
   ]
 }
