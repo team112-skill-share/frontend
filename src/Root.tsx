@@ -1,4 +1,4 @@
-import './index.css';
+import "./index.css";
 import {
   HashRouter as Router,
   Routes,
@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 import { App } from "./App";
 import { HomePage } from "./pages/HomePage";
-import { Modal } from "./components/Modal";
 import { Courses } from "./pages/Courses";
 import { WorkWithUs } from "./pages/WorkWithUs";
 import { Profile } from "./pages/Profile";
+import { Modal } from "./pages/Modal";
 
 export const Root = () => {
   return (
