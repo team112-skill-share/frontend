@@ -1,7 +1,7 @@
 {
   "name": "team-project",
   "version": "0.1.0",
-  "homepage": "https://team112-skill-share.github.io/frontend",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -11,6 +11,7 @@
     "@types/node": "^16.18.112",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
+    "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
