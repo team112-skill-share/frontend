@@ -11,6 +11,7 @@ import { Courses } from "./pages/Courses";
 import { WorkWithUs } from "./pages/WorkWithUs";
 import { Profile } from "./pages/Profile";
 import { Modal } from "./pages/Modal";
+import { CourseInfo } from "./pages/CourseInfo";
 
 export const Root = () => {
   return (
@@ -21,7 +22,10 @@ export const Root = () => {
           <Route path="home" element={<Navigate to={"/"} replace />} />
           <Route path="login" element={<Modal type="login" />} />
           <Route path="register" element={<Modal type="register" />} />
-          <Route path="courses" element={<Courses />} />
+          <Route path="courses">
+            <Route index element={<Courses />} />
+            <Route path="course-info" element={<CourseInfo />} />
+          </Route>
           <Route path="work-with-us" element={<WorkWithUs />} />
           <Route path="profile" element={<Profile />} />
         </Route>

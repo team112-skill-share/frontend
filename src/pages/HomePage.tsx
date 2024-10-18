@@ -79,8 +79,8 @@ export const HomePage = () => {
         />
       </section>
 
-      <section className="w-screen relative left-1/2 -translate-x-1/2 bg-blue rounded-t-[200px] py-14">
-        <div className="max-w-screen-xl py-10 mx-auto flex justify-between">
+      <section className="w-screen relative left-1/2 -translate-x-1/2 bg-blue rounded-t-[200px]">
+        <div className="max-w-screen-xl py-14 mx-auto flex justify-between">
           {currentStats.map(
             ({ id, title, img, count, description }) =>
               id === 0 && (

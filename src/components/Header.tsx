@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
+// import axios from "axios";
 
 const nav = [
   { link: "courses", name: "Courses" },
@@ -10,10 +11,86 @@ const nav = [
 
 export const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
-
-  console.log(isMenuActive);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
+
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuActive(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  // const handleRegister = async () => {
+  //   const url =
+  //     "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/auth/register";
+
+  //   const data = {
+  //     email: "nazzarin565@gmail.com",
+  //     password: "12345",
+  //     repeatPassword: "12345",
+  //   };
+
+  //   try {
+  //     const response = await axios.post(url, data);
+  //     console.log("Success:", response.data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  // const handleLogin = async () => {
+  //   const url =
+  //     "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/auth/login";
+  //   const data = {
+  //     email: "nazzarin565@gmail.com",
+  //     password: "12345",
+  //   };
+
+  //   try {
+  //     const response = await axios.post(url, data);
+  //     console.log("Succes:", response.data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const handleGetRequest = async () => {
+  //     const url =
+  //       "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/articles";
+
+  //     try {
+  //       const response = await axios.get(url);
+  //       console.log("Data:", response.data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+
+  //   const handleGetUser = async () => {
+  //     const url =
+  //       "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/users/me";
+
+  //     try {
+  //       const response = await axios.get(url);
+  //       console.log("Data User:", response.data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+
+  //   handleGetRequest();
+  //   handleGetUser();
+  // }, []);
 
   return (
     <header className="bg-darkgrey px-4 flex justify-between m-0 mx-auto items-center">
@@ -62,16 +139,25 @@ export const Header = () => {
               width="24"
               height="24"
               className="text-primary-blue cursor-pointer"
+              // onClick={() => handlePostRequest()}
             />
-            <Icon
-              icon="basil:user-outline"
-              width="24px"
-              height="24px"
-              className="text-grey50 relative cursor-pointer"
-              onClick={() => setIsMenuActive(!isMenuActive)}
-            />
+            {/* <button onClick={() => handleRegister()} className="bg-lightgrey">
+              register
+            </button>
+            <button onClick={() => handleLogin()} className="bg-lightgrey">
+              Login
+            </button> */}
+            <div ref={menuRef}>
+              <Icon
+                icon="basil:user-outline"
+                width="24px"
+                height="24px"
+                onClick={() => setIsMenuActive(!isMenuActive)}
+                className="text-grey50 relative cursor-pointer"
+              />
+            </div>
             {isMenuActive && (
-              <div className="absolute cursor-default w-44 p-3 top-20 right-3 bg-white border border-solid text-[#dee2e6] rounded-xl shadow-md">
+              <div className="absolute cursor-default w-44 p-3 top-20 right-3 bg-white border border-solid text-[#dee2e6] rounded-xl shadow-md z-50 flex flex-col gap-4">
                 <Link
                   to="login"
                   className="flex items-center gap-2 w-full cursor-pointer"
@@ -83,7 +169,25 @@ export const Header = () => {
                     height="16px"
                     className="text-grey"
                   />
-                  <span className="font-poppins text-secondary">Log in</span>
+                  <span className="font-poppins text-secondary text-grey">
+                    Log in
+                  </span>
+                </Link>
+
+                <Link
+                  to="register"
+                  className="flex items-center gap-2 w-full cursor-pointer"
+                  state={{ backgroundLocation: location }}
+                >
+                  <Icon
+                    icon="fluent-mdl2:signin"
+                    width="16px"
+                    height="16px"
+                    className="text-grey"
+                  />
+                  <span className="font-poppins text-secondary text-grey">
+                    Sign Up
+                  </span>
                 </Link>
               </div>
             )}

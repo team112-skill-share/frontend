@@ -22,7 +22,7 @@ export const Breadcrumbs = () => {
           {breadcrumbsElements.length - 1 === index ? (
             <p className="font-poppins text-secondary text-grey">{elem}</p>
           ) : (
-            <Link to={elem} className="font-poppins text-secondary text-grey">
+            <Link to={`/${elem}`} className="font-poppins text-secondary text-grey">
               {elem}
             </Link>
           )}

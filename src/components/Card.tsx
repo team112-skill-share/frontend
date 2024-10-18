@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 const specs = [
   { icon: "basil:timer-outline", text: "9 months" },
@@ -88,13 +89,15 @@ export const Card = () => {
         type="button"
         className="border-0 flex justify-center items-center gap-3 my-0 mx-auto py-4 w-[400px] bg-primary-blue text-lightgrey uppercase font-poppins text-button"
       >
-        Go to course{" "}
-        <Icon
-          icon="eva:diagonal-arrow-right-up-outline"
-          width="16px"
-          height="16px"
-          className="text-white"
-        />
+        <Link to="course-info">
+          Go to course{" "}
+          <Icon
+            icon="eva:diagonal-arrow-right-up-outline"
+            width="16px"
+            height="16px"
+            className="text-white"
+          />
+        </Link>
       </button>
     </div>
   );

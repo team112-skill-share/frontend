@@ -23,8 +23,8 @@ export const Courses = () => {
           course
         </p>
         <div className="flex items-center gap-20 text-small text-grey">
-          <span>Total courses: 30 Last</span>
-          <span>Update: 03.10.2024</span>
+          <span>Total courses: 30</span>
+          <span>Last Update: 03.10.2024</span>
         </div>
       </div>
 
