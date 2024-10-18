@@ -12,6 +12,7 @@ import { WorkWithUs } from "./pages/WorkWithUs";
 import { Profile } from "./pages/Profile";
 import { Modal } from "./pages/Modal";
 import { CourseInfo } from "./pages/CourseInfo";
+import { Article } from "./pages/Article";
 
 export const Root = () => {
   return (
@@ -28,6 +29,9 @@ export const Root = () => {
           </Route>
           <Route path="work-with-us" element={<WorkWithUs />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="article">
+            <Route index element={<Article />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

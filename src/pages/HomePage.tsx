@@ -6,6 +6,7 @@ import { Review } from "../components/Review";
 import { stats } from "../assets/lists";
 import { SearchInput } from "../components/SearchInput";
 import { CategoriesList } from "../components/CategoriesList";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   const [currentStats, setCurrentStats] = useState(stats);
@@ -173,7 +174,9 @@ export const HomePage = () => {
         </div>
 
         <div className="flex gap-6">
-          <PreArticle />
+          <Link to="/article">
+            <PreArticle />
+          </Link>
           <PreArticle />
         </div>
       </section>

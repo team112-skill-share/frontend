@@ -223,9 +223,11 @@ export const CourseInfo = () => {
         Fullstack Developers, Python Developers, or Web Developers.
       </p>
 
-      <h4 className="col-span-2 text-h4 uppercase w-fit flex items-center">
+
+        {/* Make a component */}
+      <h5 className="col-span-2 font-libre-baskerville text-h4 uppercase w-fit flex items-center">
         Reviews <span className="text-secondary ml-3">(0)</span>
-      </h4>
+      </h5>
 
       <span className="col-start-1 col-end-7 text-secondary text-grey">
         Only registered users can leave a review, please{" "}
