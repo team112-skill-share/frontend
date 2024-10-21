@@ -33,6 +33,7 @@ export const Root = () => {
       {previousLocation && (
         <Routes>
           <Route path="/login" element={<Modal type="login" />} />
+          <Route path="/register" element={<Modal type="register" />} />
         </Routes>
       )}
     </>

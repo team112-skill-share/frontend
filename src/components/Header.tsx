@@ -144,6 +144,7 @@ export const Header = () => {
                     <Link
                       to="register"
                       className="flex items-center gap-2 w-full cursor-pointer"
+                      state={{ previousLocation: location }}
                     >
                       <Icon
                         icon="fluent-mdl2:signin"
