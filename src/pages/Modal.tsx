@@ -1,13 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Icon } from "@iconify/react";
-
-const requirements = [
-  "Minimum 8 characters",
-  "At least 1 capital letter",
-  "At least 1 digit",
-  "Must be the same",
-];
+import { AuthForm } from "../components/AuthForm";
 
 type Props = {
   type: "login" | "register";
@@ -16,16 +9,6 @@ type Props = {
 export const Modal: React.FC<Props> = ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [isVisiblePassword, setIsVisiblePassword] = useState([false, false]);
-
-  const handleVisiblePassword = (index: number) => {
-    if (index === 0) {
-      setIsVisiblePassword([!isVisiblePassword[0], isVisiblePassword[1]]);
-    } else {
-      setIsVisiblePassword([isVisiblePassword[0], !isVisiblePassword[1]]);
-    }
-  };
 
   return (
     <div
@@ -62,42 +45,128 @@ export const Modal: React.FC<Props> = ({ type }) => {
           </span>
         </div>
 
-        <form
-          className="flex flex-col gap-6"
-          method="POST"
-          action=""
-          name="loginForm"
-          autoComplete="on"
-        >
-          <div className="flex flex-col gap-4">
-            <div className="relative flex flex-col gap-2">
-              <label className="font-poppins text-secondary text-grey">
-                Email
-              </label>
-              <input
-                className="bg-transparent w-full border border-solid text-darkgrey rounded-lg py-2 px-4 h-14 placeholder:font-poppins placeholder:text-main placeholder:text-grey50"
-                type="email"
-                placeholder="rubinov@gmail.com"
-              />
-            </div>
+        <AuthForm type={type} />
+        {/* import { Icon } from "@iconify/react";
+import React, { useState } from "react";
 
+const requirements = [
+  "Minimum 8 characters",
+  "At least 1 capital letter",
+  "At least 1 digit",
+  "Must be the same",
+];
+
+const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+type Props = {
+  type: "login" | "register";
+};
+
+export const AuthForm: React.FC<Props> = ({ type }) => {
+  const [isVisiblePassword, setIsVisiblePassword] = useState([false, false]);
+
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const newEmail = email.trim();
+    const newPassword = password.trim();
+    const newRepeatPassword = repeatPassword.trim();
+
+    if (!regexEmail.test(newEmail)) {
+      setEmailError("Incorrect email");
+    }
+  };
+
+  const handleVisiblePassword = (index: number) => {
+    if (index === 0) {
+      setIsVisiblePassword([!isVisiblePassword[0], isVisiblePassword[1]]);
+    } else {
+      setIsVisiblePassword([isVisiblePassword[0], !isVisiblePassword[1]]);
+    }
+  };
+
+  return (
+    <form
+      className="flex flex-col gap-6"
+      method="POST"
+      action=""
+      name="loginForm"
+      autoComplete="on"
+      noValidate
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col gap-4">
+        <div className="relative flex flex-col gap-2">
+          <label className="font-poppins text-secondary text-grey">Email</label>
+          <input
+            className="bg-transparent w-full border border-solid text-darkgrey rounded-lg py-2 px-4 h-14 placeholder:font-poppins placeholder:text-main placeholder:text-grey50"
+            type="email"
+            placeholder="rubinov@gmail.com"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              setEmailError("");
+            }}
+          />
+          <span className="text-red">{emailError}</span>
+        </div>
+
+        <div className="relative flex flex-col gap-2">
+          <label className="font-poppins text-secondary text-grey">
+            Password
+          </label>
+          <input
+            className="bg-transparent w-full border border-solid text-darkgrey rounded-lg py-2 px-4 h-14 placeholder:font-poppins placeholder:text-main placeholder:text-grey50"
+            type={isVisiblePassword[0] ? "text" : "password"}
+            placeholder={
+              type === "login" ? "Enter your password" : "Create password"
+            }
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <button
+            type="button"
+            className="border-none w-fit absolute right-3 top-1/2 cursor-pointer"
+            onClick={() => handleVisiblePassword(0)}
+          >
+            {isVisiblePassword[0] ? (
+              <Icon icon="basil:eye-outline" width="24" height="24" />
+            ) : (
+              <Icon icon="basil:eye-closed-outline" width="24" height="24" />
+            )}
+          </button>
+        </div>
+
+        {type === "login" && (
+          <a className="w-fit font-poppins text-secondary text-grey" href="213">
+            I forgot my password
+          </a>
+        )}
+
+        {type === "register" && (
+          <>
             <div className="relative flex flex-col gap-2">
               <label className="font-poppins text-secondary text-grey">
-                Password
+                Password again
               </label>
               <input
                 className="bg-transparent w-full border border-solid text-darkgrey rounded-lg py-2 px-4 h-14 placeholder:font-poppins placeholder:text-main placeholder:text-grey50"
-                type={isVisiblePassword[0] ? "text" : "password"}
-                placeholder={
-                  type === "login" ? "Enter your password" : "Create password"
-                }
+                type={isVisiblePassword[1] ? "text" : "password"}
+                placeholder="Enter the same password"
+                value={repeatPassword}
+                onChange={(event) => setRepeatPassword(event.target.value)}
               />
               <button
                 type="button"
                 className="border-none w-fit absolute right-3 top-1/2 cursor-pointer"
-                onClick={() => handleVisiblePassword(0)}
+                onClick={() => handleVisiblePassword(1)}
               >
-                {isVisiblePassword[0] ? (
+                {isVisiblePassword[1] ? (
                   <Icon icon="basil:eye-outline" width="24" height="24" />
                 ) : (
                   <Icon
@@ -108,82 +177,58 @@ export const Modal: React.FC<Props> = ({ type }) => {
                 )}
               </button>
             </div>
-
-            {type === "login" && (
-              <a
-                className="w-fit font-poppins text-secondary text-grey"
-                href="213"
-              >
-                I forgot my password
-              </a>
-            )}
-
-            {type === "register" && (
-              <>
-                <div className="relative flex flex-col gap-2">
-                  <label className="font-poppins text-secondary text-grey">
-                    Password again
-                  </label>
-                  <input
-                    className="bg-transparent w-full border border-solid text-darkgrey rounded-lg py-2 px-4 h-14 placeholder:font-poppins placeholder:text-main placeholder:text-grey50"
-                    type={isVisiblePassword[1] ? "text" : "password"}
-                    placeholder="Enter the same password"
+            
+            <div className="flex flex-col gap-1">
+              {requirements.map((requirement, index) => (
+                <div className="flex items-center gap-2" key={index}>
+                  <Icon
+                    icon="basil:check-solid"
+                    width="16px"
+                    height="16px"
+                    className="text-grey"
                   />
-                  <button
-                    type="button"
-                    className="border-none w-fit absolute right-3 top-1/2 cursor-pointer"
-                    onClick={() => handleVisiblePassword(1)}
-                  >
-                    {isVisiblePassword[1] ? (
-                      <Icon icon="basil:eye-outline" width="24" height="24" />
-                    ) : (
-                      <Icon
-                        icon="basil:eye-closed-outline"
-                        width="24"
-                        height="24"
-                      />
-                    )}
-                  </button>
+                  <span className="font-poppins text-secondary text-grey">
+                    {requirement}
+                  </span>
                 </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
 
-                {/* Make correct collors */}
-                <div className="flex flex-col gap-1">
-                  {requirements.map((requirement, index) => (
-                    <div className="flex items-center gap-2" key={index}>
-                      <Icon
-                        icon="basil:check-solid"
-                        width="16px"
-                        height="16px"
-                        className="text-grey"
-                      />
-                      <span className="font-poppins text-secondary text-grey">
-                        {requirement}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+      <button
+        type="submit"
+        className="h-16 p-2 uppercase border-0 bg-blue text-button-text-color font-poppins text-button text-center"
+      >
+        {type === "login" ? "Log in" : "Sign Up"}
+      </button>
 
-          <button
-            type="submit"
-            className="h-16 p-2 uppercase border-0 bg-blue text-button-text-color font-poppins text-button text-center"
-          >
-            {type === "login" ? "Log in" : "Sign Up"}
-          </button>
+      <div className="flex justify-between items-center gap-8 w-full p-3">
+        <div className="h-px bg-black w-full" />
+        <span>or</span>
+        <div className="h-px bg-black w-full" />
+      </div>
 
-          <div className="flex justify-between items-center gap-8 w-full p-3">
-            <div className="h-px bg-black w-full" />
-            <span>or</span>
-            <div className="h-px bg-black w-full" />
-          </div>
+      <button className="flex gap-1 justify-center items-center py-3 border border-solid border-darkgrey rounded-xl cursor-pointer">
+        <span className="font-poppins text-grey">Continue with</span>
+        <Icon icon="basil:google-alt-outline" width="32px" height="32px" />
+      </button>
+    </form>
+  );
+};
+ */}
 
-          <button className="flex gap-1 justify-center items-center py-3 border border-solid border-darkgrey rounded-xl cursor-pointer">
-            <span className="font-poppins text-grey">Continue with</span>
-            <Icon icon="basil:google-alt-outline" width="32px" height="32px" />
-          </button>
-        </form>
+        <div className="flex justify-between items-center gap-8 w-full p-3">
+          <div className="h-px bg-black w-full" />
+          <span>or</span>
+          <div className="h-px bg-black w-full" />
+        </div>
+
+        <button className="flex gap-1 justify-center items-center py-3 border border-solid border-darkgrey rounded-xl cursor-pointer">
+          <span className="font-poppins text-grey">Continue with</span>
+          <Icon icon="basil:google-alt-outline" width="32px" height="32px" />
+        </button>
       </div>
     </div>
   );

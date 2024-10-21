@@ -71,7 +71,7 @@ export const Card = () => {
         <div className="flex justify-between">
           <ul className="flex flex-col gap-1">
             {specs.map(({ icon, text }, index) => (
-              <li className="flex items-center gap-4">
+              <li key={index} className="flex items-center gap-4">
                 <Icon icon={icon} width="24px" height="24px" />
                 <span className="font-poppins text-secondary">{text}</span>
               </li>

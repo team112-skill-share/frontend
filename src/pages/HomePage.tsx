@@ -24,8 +24,6 @@ export const HomePage = () => {
       })
       .sort((a, b) => a.id - b.id);
 
-    console.log(newStats);
-
     setCurrentStats(newStats);
   };
 

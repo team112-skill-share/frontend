@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, replace, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
-// import axios from "axios";
-
-const nav = [
-  { link: "courses", name: "Courses" },
-  { link: "/", name: "About us" },
-  { link: "work-with-us", name: "Work with us" },
-];
+import { nav } from "../assets/constants";
 
 export const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const navigate = useNavigate();
 
-  const location = useLocation();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -29,68 +24,10 @@ export const Header = () => {
     };
   }, []);
 
-  // const handleRegister = async () => {
-  //   const url =
-  //     "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/auth/register";
-
-  //   const data = {
-  //     email: "nazzarin565@gmail.com",
-  //     password: "12345",
-  //     repeatPassword: "12345",
-  //   };
-
-  //   try {
-  //     const response = await axios.post(url, data);
-  //     console.log("Success:", response.data);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
-  // const handleLogin = async () => {
-  //   const url =
-  //     "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/auth/login";
-  //   const data = {
-  //     email: "nazzarin565@gmail.com",
-  //     password: "12345",
-  //   };
-
-  //   try {
-  //     const response = await axios.post(url, data);
-  //     console.log("Succes:", response.data);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const handleGetRequest = async () => {
-  //     const url =
-  //       "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/articles";
-
-  //     try {
-  //       const response = await axios.get(url);
-  //       console.log("Data:", response.data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   };
-
-  //   const handleGetUser = async () => {
-  //     const url =
-  //       "https://cors-anywhere.herokuapp.com/http://ec2-16-171-10-48.eu-north-1.compute.amazonaws.com/api/users/me";
-
-  //     try {
-  //       const response = await axios.get(url);
-  //       console.log("Data User:", response.data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   };
-
-  //   handleGetRequest();
-  //   handleGetUser();
-  // }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/home");
+  };
 
   return (
     <header className="bg-darkgrey px-4 flex justify-between m-0 mx-auto items-center">
@@ -139,15 +76,9 @@ export const Header = () => {
               width="24"
               height="24"
               className="text-primary-blue cursor-pointer"
-              // onClick={() => handlePostRequest()}
             />
-            {/* <button onClick={() => handleRegister()} className="bg-lightgrey">
-              register
-            </button>
-            <button onClick={() => handleLogin()} className="bg-lightgrey">
-              Login
-            </button> */}
-            <div ref={menuRef}>
+
+            <button ref={menuRef}>
               <Icon
                 icon="basil:user-outline"
                 width="24px"
@@ -155,40 +86,74 @@ export const Header = () => {
                 onClick={() => setIsMenuActive(!isMenuActive)}
                 className="text-grey50 relative cursor-pointer"
               />
-            </div>
+            </button>
             {isMenuActive && (
               <div className="absolute cursor-default w-44 p-3 top-20 right-3 bg-white border border-solid text-[#dee2e6] rounded-xl shadow-md z-50 flex flex-col gap-4">
-                <Link
-                  to="login"
-                  className="flex items-center gap-2 w-full cursor-pointer"
-                  state={{ backgroundLocation: location }}
-                >
-                  <Icon
-                    icon="basil:login-outline"
-                    width="16px"
-                    height="16px"
-                    className="text-grey"
-                  />
-                  <span className="font-poppins text-secondary text-grey">
-                    Log in
-                  </span>
-                </Link>
+                {token ? (
+                  <>
+                    <Link
+                      to="profile"
+                      className="flex items-center gap-2 w-full cursor-pointer"
+                    >
+                      <Icon
+                        icon="iconamoon:profile"
+                        width="16px"
+                        height="16px"
+                        className="text-grey"
+                      />
+                      <span className="font-poppins text-secondary text-grey">
+                        Profile
+                      </span>
+                    </Link>
 
-                <Link
-                  to="register"
-                  className="flex items-center gap-2 w-full cursor-pointer"
-                  state={{ backgroundLocation: location }}
-                >
-                  <Icon
-                    icon="fluent-mdl2:signin"
-                    width="16px"
-                    height="16px"
-                    className="text-grey"
-                  />
-                  <span className="font-poppins text-secondary text-grey">
-                    Sign Up
-                  </span>
-                </Link>
+                    <button
+                      className="flex items-center gap-2 w-full cursor-pointer"
+                      onClick={handleLogout}
+                    >
+                      <Icon
+                        icon="basil:logout-outline"
+                        width="16px"
+                        height="16px"
+                        className="text-red"
+                      />
+                      <span className="font-poppins text-secondary text-red">
+                        Log out
+                      </span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="login"
+                      className="flex items-center gap-2 w-full cursor-pointer"
+                    >
+                      <Icon
+                        icon="basil:login-outline"
+                        width="16px"
+                        height="16px"
+                        className="text-grey"
+                      />
+                      <span className="font-poppins text-secondary text-grey">
+                        Log in
+                      </span>
+                    </Link>
+
+                    <Link
+                      to="register"
+                      className="flex items-center gap-2 w-full cursor-pointer"
+                    >
+                      <Icon
+                        icon="fluent-mdl2:signin"
+                        width="16px"
+                        height="16px"
+                        className="text-grey"
+                      />
+                      <span className="font-poppins text-secondary text-grey">
+                        Sign Up
+                      </span>
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
