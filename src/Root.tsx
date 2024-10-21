@@ -1,10 +1,5 @@
 import "./index.css";
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { App } from "./App";
 import { HomePage } from "./pages/HomePage";
 import { Courses } from "./pages/Courses";
@@ -15,14 +10,15 @@ import { CourseInfo } from "./pages/CourseInfo";
 import { Article } from "./pages/Article";
 
 export const Root = () => {
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
+
   return (
-    <Router>
-      <Routes>
+    <>
+      <Routes location={previousLocation || location}>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
           <Route path="home" element={<Navigate to={"/"} replace />} />
-          <Route path="login" element={<Modal type="login" />} />
-          <Route path="register" element={<Modal type="register" />} />
           <Route path="courses">
             <Route index element={<Courses />} />
             <Route path="course-info" element={<CourseInfo />} />
@@ -34,6 +30,11 @@ export const Root = () => {
           </Route>
         </Route>
       </Routes>
-    </Router>
+      {previousLocation && (
+        <Routes>
+          <Route path="/login" element={<Modal type="login" />} />
+        </Routes>
+      )}
+    </>
   );
 };

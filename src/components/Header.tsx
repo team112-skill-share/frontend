@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, replace, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { nav } from "../assets/constants";
 
@@ -9,6 +9,8 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -126,6 +128,7 @@ export const Header = () => {
                     <Link
                       to="login"
                       className="flex items-center gap-2 w-full cursor-pointer"
+                      state={{ previousLocation: location }}
                     >
                       <Icon
                         icon="basil:login-outline"
