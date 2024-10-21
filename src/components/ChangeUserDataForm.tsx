@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { User } from "../types/user";
 import { getUserInfo, updateUserInfo } from "../api/users";

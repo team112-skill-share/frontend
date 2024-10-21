@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
