@@ -10,8 +10,6 @@ export const Modal: React.FC<Props> = ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // console.log(location.state);
-
   return (
     <div
       className="fixed z-50 inset-0 bg-[#0E0D0D40] backdrop-blur-lg flex justify-center items-center"
@@ -41,6 +39,7 @@ export const Modal: React.FC<Props> = ({ type }) => {
               className="inline text-primary-blue"
               to={location.pathname.endsWith("/login") ? "/register" : "/login"}
               replace
+              state={{ previousLocation: location }}
             >
               {type === "login" ? "Create one" : "Log in"}
             </Link>
