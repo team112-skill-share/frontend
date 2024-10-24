@@ -6,3 +6,12 @@ export interface LoginData {
 export interface RegisterData extends LoginData {
   repeatPassword: string;
 }
+
+export interface RestorePassword {
+  newPassword: string;
+  repeatPassword: string;
+}
+
+export interface RestoreData extends RestorePassword {
+  token: string;
+}

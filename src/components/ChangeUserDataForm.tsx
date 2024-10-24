@@ -34,12 +34,17 @@ export const ChangeUserDataForm = () => {
 
   const onSubmit = (updatedUser: Omit<User, "email">) => {
     const updatedInfo = {
-      fullName: updatedUser.fullName,
+      fullName: updatedUser.fullName ? updatedUser.fullName.trim() : "",
       birthDate: updatedUser.birthDate,
-      phoneNumber: updatedUser.phoneNumber,
+      phoneNumber: updatedUser.phoneNumber
+        ? updatedUser.phoneNumber.trim()
+        : "",
     };
 
     updateUserInfo(updatedInfo).then(() => {
+      setValue("fullName", updatedInfo.fullName);
+      setValue("birthDate", updatedInfo.birthDate);
+      setValue("phoneNumber", updatedInfo.phoneNumber);
       setIsSuccess(true);
 
       setTimeout(() => {
@@ -79,6 +84,7 @@ export const ChangeUserDataForm = () => {
             className="bg-transparent py-2 px-4 h-14 border rounded-xl"
             id="name"
             type="text"
+            autoComplete="name"
             placeholder="John Smith"
             {...register("fullName")}
             onChange={(e) => setValue("fullName", e.target.value)}
@@ -94,6 +100,7 @@ export const ChangeUserDataForm = () => {
             id="phone"
             type="tel"
             placeholder="+380 123 45 67"
+            autoComplete="tel"
             {...register("phoneNumber")}
             onChange={(e) => setValue("phoneNumber", e.target.value)}
           />

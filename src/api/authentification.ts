@@ -35,3 +35,16 @@ export const apiRegister = async ({
     throw error;
   }
 };
+
+export const apiForgotPassword = async (email: string) => {
+  try {
+    const response = await client.post("/auth/forgotPassword", {
+      email: email,
+    });
+
+    console.log("Success: ", response.data);
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};

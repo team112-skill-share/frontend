@@ -2,20 +2,23 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { regexEmail, requirements } from "../assets/constants";
+import { regexEmail, regexPassword, requirements } from "../assets/constants";
 import classNames from "classnames";
 import { apiLogin, apiRegister } from "../api/authentification";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Location as RouterLocation } from "react-router-dom";
 
 type Props = {
   type: "login" | "register";
+  previousLocation: RouterLocation | Location;
 };
 
-export const AuthForm: React.FC<Props> = ({ type }) => {
+export const AuthForm: React.FC<Props> = ({ type, previousLocation }) => {
   const [isVisiblePassword, setIsVisiblePassword] = useState([false, false]);
 
   const [incorectPasswordError, setIncorectPasswordError] = useState(false);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+  const [isRegisterSucceed, setIsRegisterSucceed] = useState(false);
 
   const handleVisiblePassword = (index: number) => {
     if (index === 0) {
@@ -47,6 +50,7 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
     reset();
     setIsAlreadyRegistered(false);
     setIncorectPasswordError(false);
+    setIsRegisterSucceed(false);
   }, [type]);
 
   const email = watch("email");
@@ -84,14 +88,22 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
       if (!result.success) {
         setIncorectPasswordError(true);
       } else {
-        navigate("/profile");
+        navigate(-1);
       }
     } else {
       apiRegister({
         email: data.email,
         password: data.password,
         repeatPassword: data.repeatPassword,
-      }).catch(() => setIsAlreadyRegistered(true));
+      })
+        .then(() => {
+          setIsRegisterSucceed(true);
+
+          setTimeout(() => {
+            navigate("/login", { state: { previousLocation }, replace: true });
+          }, 1500);
+        })
+        .catch(() => setIsAlreadyRegistered(true));
     }
   };
 
@@ -174,6 +186,10 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
                 value: 8,
                 message: "Password must contain at least 8 characters",
               },
+              pattern: {
+                value: regexPassword,
+                message: " ",
+              },
             })}
             onChange={handlePasswordChange}
           />
@@ -211,9 +227,13 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
         </div>
 
         {type === "login" && (
-          <a className="w-fit font-poppins text-secondary text-grey" href="213">
+          <Link
+            className="w-fit font-poppins text-secondary text-grey"
+            to="/forgot-password"
+            state={{ previousLocation }}
+          >
             I forgot my password
-          </a>
+          </Link>
         )}
 
         {type === "register" && (
@@ -292,6 +312,12 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
         </p>
       )}
 
+      {isRegisterSucceed && (
+        <p className=" bg-green text-white text-secondary w-fit inline-block p-1">
+          Succesfuly registered! Now - log in.
+        </p>
+      )}
+
       <button
         type="submit"
         className={classNames(
@@ -303,7 +329,11 @@ export const AuthForm: React.FC<Props> = ({ type }) => {
                 : email && password && repeatPassword,
           }
         )}
-        disabled={!email && !password}
+        disabled={
+          type === "login"
+            ? !(email && password)
+            : !(email && password && repeatPassword)
+        }
       >
         {type === "login" ? "Log in" : "Sign Up"}
       </button>

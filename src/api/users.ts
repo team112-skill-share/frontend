@@ -1,3 +1,4 @@
+import { RestoreData } from "../types/authentification";
 import { ChangePassword, User } from "../types/user";
 import { client } from "./httpClient";
 
@@ -40,6 +41,25 @@ export const updateUserPassword = async ({
     console.log(response);
   } catch (error) {
     console.log("Error during change User Password", error);
+    throw error;
+  }
+};
+
+export const apiResetUserPassword = async ({
+  token,
+  newPassword,
+  repeatPassword,
+}: RestoreData) => {
+  try {
+    const response = await client.post("/users/me/resetPassword", {
+      token: token,
+      newPassword: newPassword,
+      repeatPassword: repeatPassword,
+    });
+
+    console.log(response.data);
+  } catch (error) {
+    console.log("Error:", error);
     throw error;
   }
 };

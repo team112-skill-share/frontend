@@ -8,6 +8,8 @@ import { Profile } from "./pages/Profile";
 import { Modal } from "./pages/Modal";
 import { CourseInfo } from "./pages/CourseInfo";
 import { Article } from "./pages/Article";
+import { ForgotPassword } from "./components/ForgotPassword";
+import { ResetPassword } from "./pages/ResetPassword";
 
 export const Root = () => {
   const location = useLocation();
@@ -28,12 +30,14 @@ export const Root = () => {
           <Route path="article">
             <Route index element={<Article />} />
           </Route>
+          <Route path="reset-password" element={<ResetPassword />} />
         </Route>
       </Routes>
       {previousLocation && (
         <Routes>
           <Route path="/login" element={<Modal type="login" />} />
           <Route path="/register" element={<Modal type="register" />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       )}
     </>

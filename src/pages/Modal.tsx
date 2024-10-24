@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { AuthForm } from "../components/AuthForm";
+import { useState } from "react";
 
 type Props = {
   type: "login" | "register";
@@ -9,6 +10,11 @@ type Props = {
 export const Modal: React.FC<Props> = ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [initialPreviousLocation] = useState(location);
+
+  const state = location.state as { previousLocation?: Location };
+  const previousLocation = state?.previousLocation || initialPreviousLocation;
 
   return (
     <div
@@ -39,14 +45,14 @@ export const Modal: React.FC<Props> = ({ type }) => {
               className="inline text-primary-blue"
               to={location.pathname.endsWith("/login") ? "/register" : "/login"}
               replace
-              state={{ previousLocation: location }}
+              state={{ previousLocation: previousLocation }}
             >
               {type === "login" ? "Create one" : "Log in"}
             </Link>
           </span>
         </div>
 
-        <AuthForm type={type} />
+        <AuthForm type={type} previousLocation={previousLocation} />
 
         <div className="flex justify-between items-center gap-8 w-full p-3">
           <div className="h-px bg-black w-full" />
