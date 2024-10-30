@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { AuthForm } from "../components/AuthForm";
 import { useEffect, useState } from "react";
-import { apiGoogleLogin } from "../api/authentification";
 
 type Props = {
   type: "login" | "register";
@@ -24,10 +23,6 @@ export const Modal: React.FC<Props> = ({ type }) => {
       document.body.style.overflow = "";
     };
   }, []);
-
-  // const handleGoogleLogin = () => {
-  //   apiGoogleLogin().then().catch();
-  // };
 
   return (
     <div
@@ -75,7 +70,10 @@ export const Modal: React.FC<Props> = ({ type }) => {
 
         <button
           className="flex gap-1 justify-center items-center py-3 border border-solid border-darkgrey rounded-xl cursor-pointer"
-          onClick={apiGoogleLogin}
+          onClick={() =>
+            (window.location.href =
+              "https://skillshare112.online/api/auth/login/google")
+          }
         >
           <span className="font-poppins text-grey">Continue with</span>
           <Icon icon="basil:google-alt-outline" width="32px" height="32px" />

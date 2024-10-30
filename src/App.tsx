@@ -1,14 +1,23 @@
+import { useEffect } from "react";
 import { client } from "./api/httpClient";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 
 export const App = () => {
-  const token = localStorage.getItem("token");
+  const [searchParams] = useSearchParams();
 
-  if (token) {
-    client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token") || searchParams.get("token");
+
+    if (token) {
+      client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      if (!localStorage.getItem("token")) {
+        localStorage.setItem("token", token);
+      }
+    }
+  }, [searchParams]);
 
   return (
     <div className="flex flex-col min-h-screen">

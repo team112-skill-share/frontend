@@ -48,14 +48,3 @@ export const apiForgotPassword = async (email: string) => {
     throw error;
   }
 };
-
-export const apiGoogleLogin = async () => {
-  try {
-    const response = await client.get("/auth/login/google");
-
-    console.log("Success:", response);
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-};
