@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { User } from "../types/user";
 import { getUserInfo, updateUserInfo } from "../api/users";
@@ -30,7 +29,7 @@ export const ChangeUserDataForm = () => {
         navigate("/login");
       }
     });
-  }, []);
+  }, [navigate, setValue]);
 
   const onSubmit = (updatedUser: Omit<User, "email">) => {
     const updatedInfo = {
@@ -123,7 +122,7 @@ export const ChangeUserDataForm = () => {
 
       <button
         type="submit"
-        className="bg-primary-blue text-lightgrey h-14 p-2 rounded-xl"
+        className="bg-primary-blue text-lightgrey h-14 p-2 rounded-xl hover:bg-dark-blue transition-all"
       >
         Save
       </button>

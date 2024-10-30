@@ -229,12 +229,9 @@ export const ResetPassword = () => {
           <button
             type="submit"
             className={classNames(
-              "h-16 p-2 uppercase border-0 bg-blue text-button-text-color font-poppins text-button text-center",
-              {
-                "bg-primary-blue text-lightgrey": password && repeatPassword,
-              }
+              "h-16 p-2 uppercase border-0 bg-primary-blue text-lightgrey font-poppins text-button text-center disabled:text-button-text-color disabled:bg-blue hover:bg-dark-blue transition-all"
             )}
-            disabled={!password}
+            disabled={!(password && repeatPassword)}
           >
             Create new password
           </button>

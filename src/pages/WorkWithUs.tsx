@@ -1,4 +1,47 @@
+import { useForm } from "react-hook-form";
+import { regexEmail } from "../assets/constants";
+import { RequestCourse } from "../types/courses";
+import { apiRequestCourse } from "../api/courses";
+import { useState } from "react";
+
 export const WorkWithUs = () => {
+  const token = localStorage.getItem("token");
+  const [isAuthorized, setIsAuthorized] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      company: "",
+      phoneNumber: "",
+      email: "",
+      workField: "1",
+      description: "",
+    },
+  });
+
+  const onSubmit = (data: RequestCourse) => {
+    if (!token) {
+      setIsAuthorized(false);
+      return;
+    }
+
+    apiRequestCourse({
+      company: data.company,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+      workField: data.workField,
+      description: data.description,
+    }).then(() => {
+      setIsSuccess(true);
+      reset();
+    });
+  };
+
   return (
     <div className="flex flex-col gap-16">
       <div className="w-screen relative left-1/2 -translate-x-1/2 bg-lightblue h-[480px] rounded-br-[200px] rounded-bl-[200px]">
@@ -31,7 +74,11 @@ export const WorkWithUs = () => {
         </h4>
 
         <div className="flex gap-6 justify-between">
-          <form className="flex justify-between flex-grow" method="POST">
+          <form
+            className="flex justify-between flex-grow"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="w-96 flex flex-col gap-8">
               <h5 className="font-libre-baskerville text-h5 uppercase">
                 How to contact you
@@ -43,11 +90,18 @@ export const WorkWithUs = () => {
                   </label>
                   <input
                     className="bg-transparent border rounded-xl h-14 py-2 px-4 leading-10 placeholder:text-grey50"
-                    name="company-name"
                     id="name"
                     type="text"
                     placeholder="GetRespect"
+                    {...register("company", {
+                      required: "Enter your company name!",
+                    })}
                   />
+                  {errors.company && (
+                    <p className="text-red text-small">
+                      {errors.company.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -57,11 +111,18 @@ export const WorkWithUs = () => {
                   </label>
                   <input
                     className="bg-transparent border rounded-xl h-14 py-2 px-4 leading-10 placeholder:text-grey50"
-                    name="phone"
                     id="phone"
                     type="tel"
-                    placeholder="+38063 234 56 78"
+                    placeholder="+38(063) 234 56 78"
+                    {...register("phoneNumber", {
+                      required: "Enter your phone number!",
+                    })}
                   />
+                  {errors.phoneNumber && (
+                    <p className="text-red text-small">
+                      {errors.phoneNumber.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-2">
@@ -71,11 +132,22 @@ export const WorkWithUs = () => {
                   </label>
                   <input
                     className="bg-transparent border rounded-xl h-14 py-2 px-4 leading-10 placeholder:text-grey50"
-                    name="email"
                     id="email"
                     type="email"
                     placeholder="company@gmail.com"
+                    {...register("email", {
+                      required: "Enter company/your email!",
+                      pattern: {
+                        value: regexEmail,
+                        message: "Enter valid email",
+                      },
+                    })}
                   />
+                  {errors.email && (
+                    <p className="text-red text-small">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -92,11 +164,16 @@ export const WorkWithUs = () => {
                     <span className="text-red">*</span>
                   </label>
                   <select
-                    name="service"
                     id="service"
                     className="bg-transparent border rounded-xl h-14 py-2 px-4 leading-10 placeholder:text-grey50"
+                    defaultValue="1"
+                    {...register("workField", {
+                      required: "Please select a valid option",
+                      validate: (value) =>
+                        value !== "1" || "Please select a valid option",
+                    })}
                   >
-                    <option value="1" disabled selected>
+                    <option value="1" disabled>
                       Choose a field
                     </option>
                     {/* Try to map existing list (maybe create an object with value) */}
@@ -111,6 +188,11 @@ export const WorkWithUs = () => {
                     <option value="10">Culture</option>
                     <option value="11">Other</option>
                   </select>
+                  {errors.workField && (
+                    <p className="text-red text-small">
+                      {errors.workField.message}
+                    </p>
+                  )}
 
                   <div className="flex flex-col gap-2">
                     <label
@@ -122,15 +204,27 @@ export const WorkWithUs = () => {
                     <textarea
                       className="bg-transparent border rounded-xl py-2 px-4 leading-10 placeholder:text-grey50 h-44"
                       id="description"
-                      name="description"
                       placeholder="Tell something interesting about your company :)"
+                      {...register("description")}
                     />
                   </div>
                 </div>
 
+                {!isAuthorized && (
+                  <p className="text-red text-secondary">
+                    You unauthorized. Please log in or sign up and try again
+                  </p>
+                )}
+
+                {isSuccess && (
+                  <p className="text-green text-secondary">
+                    Thanks for your request! We will contact you soon
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="bg-primary-blue text-lightgrey py-2 h-14 text-button text-center uppercase"
+                  className="bg-primary-blue text-lightgrey py-2 h-14 text-button text-center uppercase hover:bg-dark-blue transition-all"
                 >
                   Send information about your company
                 </button>

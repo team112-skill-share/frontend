@@ -9,7 +9,7 @@ const specs = [
 
 export const Card = () => {
   return (
-    <div className="w-[600px] p-4 border border-solid border-primary-blue flex flex-col gap-10">
+    <div className="w-[600px] p-4 border border-solid border-primary-blue flex flex-col gap-10 hover:bg-lightblue transition-all">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
@@ -57,9 +57,12 @@ export const Card = () => {
           />
 
           <div className="flex flex-col gap-4">
-            <h5 className="font-libre-baskerville text-h5 uppercase">
+            <Link
+              to="course-info"
+              className="font-libre-baskerville text-h5 uppercase hover:text-grey transition-all"
+            >
               Fullstack Python Developer (from scratch)
-            </h5>
+            </Link>
             <img
               className="w-fit h-8 object-contain"
               src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
@@ -84,21 +87,19 @@ export const Card = () => {
         </div>
       </div>
 
-      {/* Incorrect Icon! */}
-      <button
-        type="button"
-        className="border-0 flex justify-center items-center gap-3 my-0 mx-auto py-4 w-[400px] bg-primary-blue text-lightgrey uppercase font-poppins text-button"
+      <Link
+        to="course-info"
+        role="button"
+        className="border-0 flex justify-center items-center my-0 mx-auto py-4 w-[400px] bg-primary-blue text-lightgrey uppercase font-poppins text-button hover:bg-dark-blue transition-all"
       >
-        <Link to="course-info">
-          Go to course{" "}
-          <Icon
-            icon="eva:diagonal-arrow-right-up-outline"
-            width="16px"
-            height="16px"
-            className="text-white"
-          />
-        </Link>
-      </button>
+        Go to course{" "}
+        <Icon
+          icon="eva:diagonal-arrow-right-up-outline"
+          width="16px"
+          height="16px"
+          className="text-white"
+        />
+      </Link>
     </div>
   );
 };

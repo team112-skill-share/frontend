@@ -82,10 +82,7 @@ export const ForgotPassword = () => {
         <button
           type="submit"
           className={classNames(
-            "h-16 p-2 uppercase border-0 bg-blue text-button-text-color font-poppins text-button text-center",
-            {
-              "bg-primary-blue text-lightgrey": email && !isSuccess,
-            }
+            "h-16 p-2 uppercase border-0 bg-primary-blue text-lightgrey font-poppins text-button text-center hover:bg-dark-blue disabled:bg-blue disabled:text-button-text-color"
           )}
           disabled={!email || isSuccess}
           onClick={() => handleSubmit(email)}

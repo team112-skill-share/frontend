@@ -1,9 +1,14 @@
 // import headImg from "./article-cosmetologist.png";
 
 import { Icon } from "@iconify/react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export const Article = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-full relative w-[1440px] mx-auto left-1/2 -translate-x-1/2 -z-50">

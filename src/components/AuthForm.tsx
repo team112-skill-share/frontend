@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -51,7 +50,7 @@ export const AuthForm: React.FC<Props> = ({ type, previousLocation }) => {
     setIsAlreadyRegistered(false);
     setIncorectPasswordError(false);
     setIsRegisterSucceed(false);
-  }, [type]);
+  }, [type, reset]);
 
   const email = watch("email");
   const password = watch("password");
@@ -321,7 +320,7 @@ export const AuthForm: React.FC<Props> = ({ type, previousLocation }) => {
       <button
         type="submit"
         className={classNames(
-          "h-16 p-2 uppercase border-0 bg-blue text-button-text-color font-poppins text-button text-center",
+          "h-16 p-2 uppercase border-0 text-button-text-color font-poppins text-button text-center hover:bg-dark-blue disabled:bg-blue transition-all",
           {
             "bg-primary-blue text-lightgrey":
               type === "login"

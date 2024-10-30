@@ -18,6 +18,7 @@ export const Header = () => {
         setIsMenuActive(false);
       }
     };
+    console.log(123);
 
     document.addEventListener("click", handleClick);
 
@@ -26,16 +27,21 @@ export const Header = () => {
     };
   }, []);
 
+  const handleOpenMenu = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMenuActive(!isMenuActive);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/home");
   };
 
   return (
-    <header className="bg-darkgrey px-4 flex justify-between m-0 mx-auto items-center">
+    <header className="w-full bg-darkgrey px-4 flex justify-between m-0 mx-auto items-center">
       <Link to="home">
         <img
-          className="box-content py-[9px] w-[164px] h-[72px] object-contain"
+          className="box-content py-[9px] w-[164px] h-[72px] object-contain hover:scale-105 transition-all"
           src={`${process.env.PUBLIC_URL}/img/skill-share-logo.svg`}
           alt="logo"
         />
@@ -47,7 +53,7 @@ export const Header = () => {
             {nav.map(({ link, name }) => (
               <Link
                 to={link}
-                className="font-poppins text-main text-lightgrey py-2"
+                className="font-poppins text-main text-lightgrey py-2 hover:text-primary-blue hover:scale-105 transition-all"
                 key={link}
               >
                 <li>{name}</li>
@@ -57,7 +63,7 @@ export const Header = () => {
         </nav>
 
         <div className="flex gap-4 items-center">
-          <div className="flex gap-1 items-center cursor-pointer">
+          <div className="flex gap-1 items-center cursor-pointer hover:scale-110 transition-all">
             <Icon
               icon="la:flag-usa"
               width="24px"
@@ -73,29 +79,31 @@ export const Header = () => {
           </div>
 
           <div className="flex gap-2 border border-solid border-[#bababa] rounded-xl p-2">
-            <Icon
-              icon="basil:heart-outline"
-              width="24"
-              height="24"
-              className="text-primary-blue cursor-pointer"
-            />
+            <Link to="favourites">
+              <Icon
+                icon="basil:heart-solid"
+                width="24"
+                height="24"
+                className="text-transparent stroke-primary-blue cursor-pointer hover:scale-105 hover:text-primary-blue transition-all"
+              />
+            </Link>
 
             <button ref={menuRef}>
               <Icon
-                icon="basil:user-outline"
+                icon="basil:user-solid"
                 width="24px"
                 height="24px"
-                onClick={() => setIsMenuActive(!isMenuActive)}
-                className="text-grey50 relative cursor-pointer"
+                className="text-transparent stroke-grey50 cursor-pointer hover:scale-105 hover:text-grey50 transition-all"
+                onClick={handleOpenMenu}
               />
             </button>
             {isMenuActive && (
-              <div className="absolute cursor-default w-44 p-3 top-20 right-3 bg-white border border-solid text-[#dee2e6] rounded-xl shadow-md z-50 flex flex-col gap-4">
+              <div className="absolute cursor-default w-44 top-20 right-3 bg-white border border-solid text-[#dee2e6] rounded-xl shadow-md z-50">
                 {token ? (
                   <>
                     <Link
                       to="profile"
-                      className="flex items-center gap-2 w-full cursor-pointer"
+                      className="flex items-center gap-2 w-full p-3 cursor-pointer rounded-xl hover:bg-lightgrey transition-all"
                     >
                       <Icon
                         icon="iconamoon:profile"
@@ -109,7 +117,7 @@ export const Header = () => {
                     </Link>
 
                     <button
-                      className="flex items-center gap-2 w-full cursor-pointer"
+                      className="flex items-center gap-2 w-full p-3 cursor-pointer rounded-xl hover:bg-lightgrey transition-all"
                       onClick={handleLogout}
                     >
                       <Icon
@@ -127,7 +135,7 @@ export const Header = () => {
                   <>
                     <Link
                       to="login"
-                      className="flex items-center gap-2 w-full cursor-pointer"
+                      className="flex items-center gap-2 w-full p-3 cursor-pointer rounded-xl hover:bg-lightgrey transition-all"
                       state={{ previousLocation: location }}
                     >
                       <Icon
@@ -143,7 +151,7 @@ export const Header = () => {
 
                     <Link
                       to="register"
-                      className="flex items-center gap-2 w-full cursor-pointer"
+                      className="flex items-center gap-2 w-full p-3 cursor-pointer rounded-xl hover:bg-lightgrey transition-all"
                       state={{ previousLocation: location }}
                     >
                       <Icon

@@ -27,6 +27,14 @@ a {
   text-decoration: none;
 }
 
+input:disabled {
+  color: #bababa;
+}
+
+button:disabled {
+  background-color: #9fcfe8;
+}
+
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;

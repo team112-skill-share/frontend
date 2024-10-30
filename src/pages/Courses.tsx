@@ -19,8 +19,7 @@ export const Courses = () => {
           Online Course Catalog in 2024. We select and check lessons from more
           than 400 schools, rank them according to a special formula so that you
           can choose the best training option for yourself. The rating is
-          updated every day based on all reviews on the RuNet. Choose the best
-          course
+          updated every day based on all reviews. Choose the best course
         </p>
         <div className="flex items-center gap-20 text-small text-grey">
           <span>Total courses: 30</span>

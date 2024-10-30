@@ -9,7 +9,12 @@ export const Breadcrumbs = () => {
   return (
     <div className="capitalize font-poppins text-secondary text-grey mt-10 flex items-center gap-1">
       <Link to="/home">
-        <Icon icon="basil:home-outline" width="24px" height="24px" />
+        <Icon
+          icon="basil:home-outline"
+          width="24px"
+          height="24px"
+          className="hover:text-primary-blue hover:scale-101 hover:font-semibold transition-all"
+        />
       </Link>
       {breadcrumbsElements.map((elem, index) => (
         <div className="flex items-center gap-1" key={index}>
@@ -22,7 +27,10 @@ export const Breadcrumbs = () => {
           {breadcrumbsElements.length - 1 === index ? (
             <p className="font-poppins text-secondary text-grey">{elem}</p>
           ) : (
-            <Link to={`/${elem}`} className="font-poppins text-secondary text-grey">
+            <Link
+              to={`/${elem}`}
+              className="font-poppins text-secondary text-grey hover:text-primary-blue hover:scale-101 hover:font-semibold transition-all"
+            >
               {elem}
             </Link>
           )}

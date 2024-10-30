@@ -17,6 +17,7 @@ module.exports = {
       lightblue: "#D6E7EF",
       green: "#1dbd21",
       "button-text-color": "#868E96",
+      "dark-blue": "#194175",
     },
 
     extend: {
@@ -44,7 +45,30 @@ module.exports = {
       maxWidth: {
         "screen-xl": "1224px",
       },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        scroll: "scroll 30s linear infinite",
+      },
+      scale: {
+        101: "1.01",
+        102: "1.02",
+        103: "1.03",
+        104: "1.04",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".pause-animation": {
+          "animation-play-state": "paused",
+        },
+      });
+    },
+  ],
 };

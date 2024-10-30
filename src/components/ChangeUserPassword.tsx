@@ -268,7 +268,7 @@ export const ChangeUserPassword = () => {
       </div>
 
       <button
-        className="bg-primary-blue text-lightgrey h-14 p-2 rounded-xl"
+        className="bg-primary-blue text-lightgrey h-14 p-2 rounded-xl hover:bg-dark-blue transition-all"
         type="submit"
       >
         Change password

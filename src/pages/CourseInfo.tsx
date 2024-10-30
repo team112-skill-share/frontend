@@ -1,8 +1,20 @@
 import { Icon } from "@iconify/react";
 import { Breadcrumbs } from "../components/Breadcrumbs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const CourseInfo = () => {
+  const location = useLocation();
+
+  const [initialPreviousLocation] = useState(location);
+
+  const state = location.state as { previousLocation?: Location };
+  const previousLocation = state?.previousLocation || initialPreviousLocation;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-full">
@@ -28,7 +40,7 @@ export const CourseInfo = () => {
           <span className="text-secondary text-grey">918 views</span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer hover:text-primary-blue hover:font-medium transition-all">
           <Icon icon="basil:heart-outline" width="24px" height="24px" />
           <span className="add">Add to favourites</span>
         </div>
@@ -69,7 +81,10 @@ export const CourseInfo = () => {
               />
             </div>
 
-            <button className="self-end w-96 h-14 p-2 bg-primary-blue text-center text-button text-lightgrey uppercase rounded-xl">
+            <button
+              onClick={() => alert("Redirecting to course platform")}
+              className="self-end w-96 h-14 p-2 bg-primary-blue text-center text-button text-lightgrey uppercase rounded-xl hover:bg-dark-blue transition-all"
+            >
               Get started
             </button>
           </div>
@@ -223,19 +238,26 @@ export const CourseInfo = () => {
         Fullstack Developers, Python Developers, or Web Developers.
       </p>
 
-
-        {/* Make a component */}
+      {/* Make a component */}
       <h5 className="col-span-2 font-libre-baskerville text-h4 uppercase w-fit flex items-center">
         Reviews <span className="text-secondary ml-3">(0)</span>
       </h5>
 
       <span className="col-start-1 col-end-7 text-secondary text-grey">
         Only registered users can leave a review, please{" "}
-        <Link to="login" className="text-primary-blue inline">
+        <Link
+          to="/login"
+          className="relative text-primary-blue inline after:absolute after:left-0 after:bottom-0 after:h-px after:bg-current after:w-0 after:transition-all after:duration-300 hover:after:w-full hover:font-medium transition-all"
+          state={{ previousLocation }}
+        >
           log in
         </Link>{" "}
         or{" "}
-        <Link to="register" className="text-primary-blue inline">
+        <Link
+          to="/register"
+          className="relative text-primary-blue inline after:absolute after:left-0 after:bottom-0 after:h-px after:bg-current after:w-0 after:transition-all after:duration-300 hover:after:w-full hover:font-medium transition-all"
+          state={{ previousLocation }}
+        >
           register
         </Link>
         .

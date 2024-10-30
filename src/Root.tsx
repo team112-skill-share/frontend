@@ -10,6 +10,7 @@ import { CourseInfo } from "./pages/CourseInfo";
 import { Article } from "./pages/Article";
 import { ForgotPassword } from "./components/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
+import { Favourites } from "./pages/Favourites";
 
 export const Root = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ export const Root = () => {
             <Route path="course-info" element={<CourseInfo />} />
           </Route>
           <Route path="work-with-us" element={<WorkWithUs />} />
+          <Route path="favourites" element={<Favourites />} />
           <Route path="profile" element={<Profile />} />
           <Route path="article">
             <Route index element={<Article />} />
