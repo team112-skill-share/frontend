@@ -19,7 +19,9 @@ export const ChangeUserDataForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(12345);
     getUserInfo().then((data) => {
+      console.log(data);
       if (data) {
         setValue("email", data.email);
         setValue("fullName", data.fullName);

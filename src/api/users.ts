@@ -7,7 +7,10 @@ export const getUserInfo = async () => {
     const response = await client.get("/users/me");
 
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
 };
 
 export const updateUserInfo = async ({

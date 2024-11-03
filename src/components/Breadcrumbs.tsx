@@ -6,6 +6,8 @@ export const Breadcrumbs = () => {
 
   const breadcrumbsElements = pathname.split("/").filter((item) => item !== "");
 
+  console.log(breadcrumbsElements);
+
   return (
     <div className="capitalize font-poppins text-secondary text-grey mt-10 flex items-center gap-1">
       <Link to="/home">
@@ -25,13 +27,15 @@ export const Breadcrumbs = () => {
             className="text-grey"
           />
           {breadcrumbsElements.length - 1 === index ? (
-            <p className="font-poppins text-secondary text-grey">{elem}</p>
+            <p className="font-poppins text-secondary text-grey">
+              {elem.replaceAll("%20", " ")}
+            </p>
           ) : (
             <Link
-              to={`/${elem}`}
+              to={`/${breadcrumbsElements.slice(0, index + 1).join("/")}`}
               className="font-poppins text-secondary text-grey hover:text-primary-blue hover:scale-101 hover:font-semibold transition-all"
             >
-              {elem}
+              {elem.replaceAll("%20", " ")}
             </Link>
           )}
         </div>

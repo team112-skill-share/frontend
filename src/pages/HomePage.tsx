@@ -6,8 +6,13 @@ import { CategoriesList } from "../components/CategoriesList";
 import { Link } from "react-router-dom";
 import { HomePageSectionTitle } from "../components/HomePageSectionTitle";
 import { HomePageStatsList } from "../components/StatsList";
+import { Categories } from "../types/categories";
 
-export const HomePage = () => {
+type Props = {
+  categories: Categories[];
+};
+
+export const HomePage: React.FC<Props> = ({ categories }) => {
   return (
     <div className="flex flex-col gap-16">
       <section className="w-screen relative left-1/2 -translate-x-1/2 bg-lightblue h-[600px] rounded-br-[200px] rounded-bl-[200px]">
@@ -26,7 +31,7 @@ export const HomePage = () => {
             <div className="flex flex-col gap-4">
               <SearchInput />
 
-              <CategoriesList />
+              <CategoriesList categories={categories} />
             </div>
           </div>
         </div>

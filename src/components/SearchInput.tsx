@@ -1,13 +1,12 @@
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
-import { useEffect, useState } from "react";
 
-export const SearchInput = () => {
-  const [query, setQuery] = useState("");
+type Props = {
+  query?: string;
+  onSetQuery?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-  useEffect(() => {
-    setQuery("");
-  }, []);
+export const SearchInput: React.FC<Props> = ({ query, onSetQuery }) => {
   return (
     <div className="relative h-14">
       <input
@@ -15,7 +14,7 @@ export const SearchInput = () => {
         type="text"
         placeholder="Enter the name of the course or area of ​​interest here"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={onSetQuery}
       />
       <button
         className="absolute right-px top-0.5 bottom-px bg-primary-blue rounded-xl h-[93%] w-24 text-white flex justify-center items-center hover:bg-dark-blue disabled:bg-blue transition-all"

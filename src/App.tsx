@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { client } from "./api/httpClient";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -7,8 +7,10 @@ import { Outlet, useSearchParams } from "react-router-dom";
 export const App = () => {
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const token = localStorage.getItem("token") || searchParams.get("token");
+
+    console.log(token);
 
     if (token) {
       client.defaults.headers.common["Authorization"] = `Bearer ${token}`;

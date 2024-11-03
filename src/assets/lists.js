@@ -1,14 +1,14 @@
-export const categories = [
-  "All courses",
-  "Economic and Business",
-  "Foreign languages",
-  "Inclusivity",
-  "Civil Education",
-  "Texnical Education and IT",
-  "Psychology and Medicine",
-  "External Independent Evaluation",
-  "History",
-  "Culture",
+export const initialCategories = [
+  { name: "All courses" },
+  { name: "Economic and Business" },
+  { name: "Foreign languages" },
+  { name: "Inclusivity" },
+  { name: "Civil Education" },
+  { name: "Texnical Education and IT" },
+  { name: "Psychology and Medicine" },
+  { name: "External Independent Evaluation" },
+  { name: "History" },
+  { name: "Culture" },
 ];
 
 export const stats = [

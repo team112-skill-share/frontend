@@ -1,10 +1,26 @@
 import { Icon } from "@iconify/react";
 import { Breadcrumbs } from "../components/Breadcrumbs";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { apiGetCurrentCourse } from "../api/courses";
+import {
+  Course,
+  CourseContent,
+  CourseImages,
+  CurrentCourse,
+} from "../types/courses";
+import { ReviewOfCurrentCourse } from "../types/reviews";
 
-export const CourseInfo = () => {
+type Props = {
+  courses: Course[];
+};
+
+export const CourseInfo: React.FC<Props> = ({ courses }) => {
+  const [course, setCourse] = useState<CurrentCourse>();
+  const { courseName } = useParams();
   const location = useLocation();
+
+  const currentCourse = courses.find((course) => course.title === courseName);
 
   const [initialPreviousLocation] = useState(location);
 
@@ -15,6 +31,25 @@ export const CourseInfo = () => {
     window.scrollTo({ top: 0 });
   }, []);
 
+  useEffect(() => {
+    if (currentCourse) {
+      apiGetCurrentCourse(currentCourse.id).then((data) =>
+        setCourse({
+          ...data,
+          contents: data.contents.sort(
+            (a: CourseContent, b: CourseContent) => a.id - b.id
+          ),
+          images: data.images.sort(
+            (a: CourseImages, b: CourseImages) => a.id - b.id
+          ),
+          reviews: data.reviews.sort(
+            (a: ReviewOfCurrentCourse, b: ReviewOfCurrentCourse) => b.id - a.id
+          ),
+        })
+      );
+    }
+  }, [courseName, currentCourse]);
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-full">
@@ -23,62 +58,65 @@ export const CourseInfo = () => {
 
       <div className="col-span-full flex justify-between">
         <h5 className="font-libre-baskerville text-h5 uppercase">
-          Course: Fullstack Python Developer (from scratch)
+          {course?.title}
         </h5>
 
         <h4 className="text-nowrap self-end font-libre-baskerville text-h4">
           <span className="font-poppins text-secondary text-grey">
             Price per course
           </span>{" "}
-          $2200
+          ${course?.price}
         </h4>
       </div>
 
       <div className="col-span-5 text-secondary text-grey flex items-center gap-8">
-        <div className="flex items-center gap-2">
-          <Icon icon="basil:eye-outline" width="24px" height="24px" />
-          <span className="text-secondary text-grey">918 views</span>
-        </div>
-
+        {/* {Make correct to add to favourite} */}
         <div className="flex items-center gap-2 cursor-pointer hover:text-primary-blue hover:font-medium transition-all">
           <Icon icon="basil:heart-outline" width="24px" height="24px" />
-          <span className="add">Add to favourites</span>
+          <span>Add to favourites</span>
         </div>
       </div>
 
       <div className="col-span-full bg-lightblue py-8 relative w-screen left-1/2 -translate-x-1/2 rounded-t-[200px]">
         <div className="col-span-full max-w-screen-xl mx-auto flex justify-between items-center">
-          <div className="h-52 flex flex-wrap flex-col gap-4 gap-x-8">
-            <div>
+          <ul className="h-52 flex flex-wrap flex-col gap-4 gap-x-8">
+            <li>
               <span className="text-grey">Course type: </span>
-              <span>online</span>
-            </div>
+              <span className="lowercase first-letter:uppercase">
+                {course?.type}
+              </span>
+            </li>
 
-            <div>
+            <li>
               <span className="text-grey">Training: </span>
-              <span>by group</span>
-            </div>
+              <span className="lowercase first-letter:uppercase">
+                {course?.format}
+              </span>
+            </li>
 
-            <div>
+            <li>
               <span className="text-grey">
                 At the end, the following is issued:{" "}
               </span>
-              <span>certificate</span>
-            </div>
+              <span>
+                {course?.certificate ? "certificate" : "without certificate"}
+              </span>
+            </li>
 
-            <div>
+            <li>
               <span className="text-grey">Trial lesson: </span>
-              <span>no</span>
-            </div>
-          </div>
+              <span>{course?.trial ? "Yes" : "No"}</span>
+            </li>
+          </ul>
 
           <div className="flex flex-col items-center gap-8">
             <div className="w-96 h-32 flex items-center justify-center px-10 py-8 border border-grey">
-              <img
+              <h3 className="text-h3">{course?.author}</h3>
+              {/* <img
                 src={`img/courses/upskillery.png`}
-                alt="company"
+                alt="course company"
                 className="h-16 object-cover"
-              />
+              /> */}
             </div>
 
             <button
@@ -96,22 +134,14 @@ export const CourseInfo = () => {
       </h4>
 
       <img
-        src={`${process.env.PUBLIC_URL}/img/courses/coursepage-1.png`}
+        src={`${course?.images[0]}`}
         alt="coursepage 1"
         className="-col-start-1 -col-end-7 row-span-2 w-[596px] h-[336px] object-contain"
       />
 
       <p className="col-start-1 col-end-7">
-        <span className="text-primary-blue">
-          The Fullstack Python Developer (from scratch)
-        </span>
-        <br />
-        course is designed for individuals who want to gain comprehensive skills
-        in both front-end and back-end development using Python, even if they
-        have little or no prior programming experience. The course covers a
-        broad range of topics essential for becoming a full-stack developer,
-        ensuring a well-rounded understanding of Python’s application in web
-        development.
+        <span className="text-primary-blue">{course?.contents[0].name} </span>
+        {course?.contents[0].text}
       </p>
 
       <h5 className="col-span-full font-libre-baskerville text-h5 uppercase">
@@ -120,31 +150,28 @@ export const CourseInfo = () => {
 
       <div className="col-span-6 border border-grey p-3">
         <p className="text-grey">
-          <span className="text-darkgrey">Career Changers: </span>Suitable for
-          individuals transitioning into tech and looking for a comprehensive
-          program that covers everything needed to start a career in
-          development.
+          <span className="text-darkgrey">{course?.contents[1].name}: </span>
+          {course?.contents[1].text}
         </p>
       </div>
 
       <img
-        src={`img/courses/coursepage-2.png`}
+        src={`${course?.images[1]}`}
         alt="coursepage 2"
         className="col-start-1 col-end-4 row-span-2"
       />
 
       <div className="col-span-6 border border-grey p-3">
         <p className="text-grey">
-          <span className="text-darkgrey">Aspiring Developers: </span>Perfect
-          for anyone looking to become a Python-based full-stack developer,
-          mastering both front-end and back-end technologies.
+          <span className="text-darkgrey">{course?.contents[2].name}: </span>
+          {course?.contents[2].text}
         </p>
       </div>
 
       <div className="-col-start-1 -col-end-7 border border-grey p-3">
         <p className="text-grey">
-          <span className="text-darkgrey">Beginners: </span>Ideal for those with
-          no coding background who want to enter the field of web development.
+          <span className="text-darkgrey">{course?.contents[3].name}: </span>
+          {course?.contents[3].text}
         </p>
       </div>
 
@@ -154,70 +181,49 @@ export const CourseInfo = () => {
 
       <div className="col-span-4 flex flex-col gap-16 self-center">
         <div className="bg-lightblue text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Python Fundamentals</span>
+          <span className="text-darkgrey">{course?.contents[4].name}</span>
           <br />
-          The course begins with an introduction to Python, focusing on core
-          programming concepts such as variables, data types, control
-          structures, functions, and object-oriented programming (OOP). This
-          provides a solid foundation for more advanced topics.
+          {course?.contents[4].text}
         </div>
 
         <div className="bg-blue text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Deployment and Version Control</span>
+          <span className="text-darkgrey">{course?.contents[5].name}</span>
           <br />
-          The course also covers important deployment practices, including cloud
-          deployment on platforms like Heroku, AWS, or Google Cloud.
-          Additionally, you’ll learn about version control systems such as Git
-          and how to collaborate on projects using GitHub.
+          {course?.contents[5].text}
         </div>
       </div>
 
       <div className="col-span-4 flex flex-col gap-8">
         <div className="bg-white text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Back-End Development</span>
+          <span className="text-darkgrey">{course?.contents[6].name}</span>
           <br />
-          Students learn how to build server-side applications using frameworks
-          like Django or Flask, two of the most popular Python web development
-          frameworks. Topics covered include creating APIs, managing databases
-          with SQL (often using PostgreSQL or SQLite), and handling user
-          authentication.
+          {course?.contents[6].text}
         </div>
 
         <div className="bg-lightblue text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Database Management</span>
-          <br />A significant focus is placed on how to integrate databases with
-          Python applications. You will work with SQL and NoSQL databases (like
-          MongoDB), learning to perform CRUD operations (Create, Read, Update,
-          Delete) and optimize database queries.
+          <span className="text-darkgrey">{course?.contents[7].name}</span>
+          <br />
+          {course?.contents[7].text}
         </div>
 
         <div className="bg-white text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Career Preparation</span>
+          <span className="text-darkgrey">{course?.contents[8].name}</span>
           <br />
-          Many courses include career guidance, helping students with resume
-          preparation, building a developer portfolio, and practicing coding
-          interviews, making graduates more marketable for full-stack
-          development roles.
+          {course?.contents[8].text}
         </div>
       </div>
 
       <div className="col-span-4 flex flex-col gap-16 self-center">
         <div className="bg-blue text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Front-End Technologies</span>
+          <span className="text-darkgrey">{course?.contents[9].name}</span>
           <br />
-          To build fully functional web applications, the course covers
-          front-end development using HTML, CSS, and JavaScript. You’ll also
-          learn how to work with frameworks like React.js or Vue.js to create
-          interactive and responsive user interfaces.
+          {course?.contents[9].text}
         </div>
 
         <div className="bg-white text-center text-grey py-4 px-6">
-          <span className="text-darkgrey">Full-Stack Project Development</span>
+          <span className="text-darkgrey">{course?.contents[10].name}</span>
           <br />
-          Toward the end of the course, students typically engage in building
-          real-world projects. This may involve developing a fully functional
-          web application from scratch, combining everything learned—front-end
-          design, back-end logic, and database integration.
+          {course?.contents[10].text}
         </div>
       </div>
 
@@ -226,17 +232,12 @@ export const CourseInfo = () => {
       </h5>
 
       <img
-        src={`img/courses/coursepage-3.png`}
+        src={`${course?.images[2]}`}
         alt="coursepage 3"
         className="col-span-6 row-span-2 object-contain h-80"
       />
 
-      <p className="col-span-6 text-grey">
-        By the end of the Fullstack Python Developer course, students will have
-        built multiple full-stack applications and have a deep understanding of
-        Python’s role in web development. Graduates can pursue careers as
-        Fullstack Developers, Python Developers, or Web Developers.
-      </p>
+      <p className="col-span-6 text-grey">{course?.contents[11].text}</p>
 
       {/* Make a component */}
       <h5 className="col-span-2 font-libre-baskerville text-h4 uppercase w-fit flex items-center">

@@ -11,20 +11,48 @@ import { Article } from "./pages/Article";
 import { ForgotPassword } from "./components/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
 import { Favourites } from "./pages/Favourites";
+import { useEffect, useState } from "react";
+import { Course } from "./types/courses";
+import { apiGetCourses } from "./api/courses";
+import { apiGetCategories } from "./api/categories";
+import { Categories } from "./types/categories";
 
 export const Root = () => {
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
 
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [categories, setCategories] = useState<Categories[]>([]);
+
+  useEffect(() => {
+    apiGetCourses().then((data) => setCourses(data));
+  }, []);
+
+  useEffect(() => {
+    apiGetCategories().then((data) => {
+      setCategories(data.sort((a: Categories, b: Categories) => a.id - b.id));
+    });
+  }, []);
+
   return (
     <>
       <Routes location={previousLocation || location}>
         <Route path="/" element={<App />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<HomePage categories={categories} />} />
           <Route path="home" element={<Navigate to={"/"} replace />} />
           <Route path="courses">
-            <Route index element={<Courses />} />
-            <Route path="course-info" element={<CourseInfo />} />
+            <Route
+              index
+              element={<Courses courses={courses} categories={categories} />}
+            />
+            <Route
+              path=":category"
+              element={<Courses courses={courses} categories={categories} />}
+            />
+            <Route
+              path=":category/:courseName"
+              element={<CourseInfo courses={courses} />}
+            />
           </Route>
           <Route path="work-with-us" element={<WorkWithUs />} />
           <Route path="favourites" element={<Favourites />} />

@@ -1,31 +1,54 @@
+import { useState } from "react";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Card } from "../components/Card";
 import { CategoriesList } from "../components/CategoriesList";
 import { SearchInput } from "../components/SearchInput";
+import { Course } from "../types/courses";
+import { Categories } from "../types/categories";
+import { useParams } from "react-router-dom";
+// import { AdminPanel } from "../components/AdminPanel";
 
-export const Courses = () => {
+type Props = {
+  courses: Course[];
+  categories: Categories[];
+};
+
+export const Courses: React.FC<Props> = ({ courses, categories }) => {
+  const [query, setQuery] = useState("");
+  const { category } = useParams();
+
+  const handleSetQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const categoryId = categories.find((item) => item.name === category)?.id;
+
+  const filteredCourses = courses.filter((course) => {
+    const matchesCategory = category ? course.categoryId === categoryId : true;
+    const matchesQuery = query
+      ? (["title", "author"] as Array<keyof Course>).some((field) =>
+          (course[field] as string).toLowerCase().includes(query.toLowerCase())
+        )
+      : true;
+    return matchesCategory && matchesQuery;
+  });
+
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs />
 
-      <CategoriesList />
+      <CategoriesList categories={categories} />
 
-      <div className="w-3/5">
-        <SearchInput />
-      </div>
+      <div className="w-3/5 flex flex-col gap-2">
+        <SearchInput query={query} onSetQuery={handleSetQuery} />
 
-      <div className="flex flex-col gap-4 w-3/5">
-        <p>
-          Online Course Catalog in 2024. We select and check lessons from more
-          than 400 schools, rank them according to a special formula so that you
-          can choose the best training option for yourself. The rating is
-          updated every day based on all reviews. Choose the best course
-        </p>
         <div className="flex items-center gap-20 text-small text-grey">
           <span>Total courses: 30</span>
           <span>Last Update: 03.10.2024</span>
         </div>
       </div>
+
+      {/* <AdminPanel /> */}
 
       {/* Think about sorting, how to change it */}
       <div className="flex justify-end gap-9">
@@ -61,10 +84,9 @@ export const Courses = () => {
       </div>
 
       <div className="mx-auto grid grid-cols-1 xl:grid-cols-2 gap-x-6 gap-y-12">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {filteredCourses.map((course) => (
+          <Card key={course.id} course={course} categories={categories} />
+        ))}
       </div>
     </div>
   );

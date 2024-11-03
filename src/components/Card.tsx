@@ -1,13 +1,18 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import { Course, Format } from "../types/courses";
+import { Categories } from "../types/categories";
 
-const specs = [
-  { icon: "basil:timer-outline", text: "9 months" },
-  { icon: "basil:group-151-outline", text: "Group" },
-  { icon: "basil:university-outline", text: "Certificate is issued" },
-];
+type Props = {
+  course: Course;
+  categories: Categories[];
+};
 
-export const Card = () => {
+export const Card: React.FC<Props> = ({ course, categories }) => {
+  const categoryName = categories.find(
+    (category) => category.id === course.categoryId
+  )?.name;
+
   return (
     <div className="w-[600px] p-4 border border-solid border-primary-blue flex flex-col gap-10 hover:bg-lightblue transition-all">
       <div className="flex justify-between items-center">
@@ -20,14 +25,14 @@ export const Card = () => {
               className="text-primary-blue"
             />
             <span className="font-poppins text-secondary text-center text-grey">
-              4.7
+              {course.averageRating || 0}
             </span>
           </div>
 
           <div className="flex items-center gap-1">
             <Icon icon="basil:comment-outline" width="24px" height="24px" />
             <span className="font-poppins text-secondary text-center text-grey">
-              2
+              {course.reviewsCount || 0}
             </span>
           </div>
         </div>
@@ -52,7 +57,7 @@ export const Card = () => {
         <div className="flex justify-between gap-6">
           <img
             className="border border-blue w-[270px] h-60 object-contain"
-            src={`${process.env.PUBLIC_URL}/img/courses/card-img.png`}
+            src={"img/courses/card-img.png"}
             alt="course img"
           />
 
@@ -61,34 +66,62 @@ export const Card = () => {
               to="course-info"
               className="font-libre-baskerville text-h5 uppercase hover:text-grey transition-all"
             >
-              Fullstack Python Developer (from scratch)
+              {course.title}
             </Link>
-            <img
+            <h5 className="text-h5">{course.author}</h5>
+            {/* <img
               className="w-fit h-8 object-contain"
               src={`${process.env.PUBLIC_URL}/img/homepage/eduquest.png`}
               alt="company logo"
-            />
+            /> */}
           </div>
         </div>
 
         <div className="flex justify-between">
           <ul className="flex flex-col gap-1">
-            {specs.map(({ icon, text }, index) => (
-              <li key={index} className="flex items-center gap-4">
-                <Icon icon={icon} width="24px" height="24px" />
-                <span className="font-poppins text-secondary">{text}</span>
-              </li>
-            ))}
+            <li className="flex items-center gap-4">
+              <Icon icon="basil:timer-outline" width="24px" height="24px" />
+              <span className="font-poppins text-secondary">
+                {course.duration}
+              </span>
+            </li>
+            <li className="flex items-center gap-4">
+              <Icon
+                icon={
+                  course.format === Format.Group
+                    ? "basil:group-151-outline"
+                    : "material-symbols:person-outline"
+                }
+                width="24px"
+                height="24px"
+              />
+              <span className="font-poppins text-secondary lowercase first-letter:uppercase">
+                {course.format}
+              </span>
+            </li>
+            <li className="flex items-center gap-4">
+              <Icon
+                icon="basil:university-outline"
+                width="24px"
+                height="24px"
+              />
+              <span className="font-poppins text-secondary">
+                {course.certificate
+                  ? "Certificate is issued"
+                  : "Without certificate"}
+              </span>
+            </li>
           </ul>
 
           <h3 className="text-nowrap self-end font-libre-baskerville text-h3">
-            <span className="font-poppins text-secondary">From</span> 22 000
+            <span className="font-poppins text-secondary">From</span> $
+            {course.price}
           </h3>
         </div>
       </div>
 
       <Link
-        to="course-info"
+        to={`/courses/${categoryName}/${course.title}`}
         role="button"
         className="border-0 flex justify-center items-center my-0 mx-auto py-4 w-[400px] bg-primary-blue text-lightgrey uppercase font-poppins text-button hover:bg-dark-blue transition-all"
       >
