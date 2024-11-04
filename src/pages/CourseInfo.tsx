@@ -2,20 +2,22 @@ import { Icon } from "@iconify/react";
 import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { apiGetCurrentCourse } from "../api/courses";
-import {
-  Course,
-  CourseContent,
-  CourseImages,
-  CurrentCourse,
-} from "../types/courses";
+import { apiGetCurrentCourse } from "../api/coursesApi";
+import { Course, CurrentCourse } from "../types/courses";
 import { ReviewOfCurrentCourse } from "../types/reviews";
+import classNames from "classnames";
+import {
+  apiAddCourseToFavourites,
+  apiDeleteCourseFromFavourites,
+} from "../api/usersApi";
+import { Content, Image } from "../types/content";
 
 type Props = {
   courses: Course[];
+  favourites: Course[] | undefined;
 };
 
-export const CourseInfo: React.FC<Props> = ({ courses }) => {
+export const CourseInfo: React.FC<Props> = ({ courses, favourites }) => {
   const [course, setCourse] = useState<CurrentCourse>();
   const { courseName } = useParams();
   const location = useLocation();
@@ -36,12 +38,8 @@ export const CourseInfo: React.FC<Props> = ({ courses }) => {
       apiGetCurrentCourse(currentCourse.id).then((data) =>
         setCourse({
           ...data,
-          contents: data.contents.sort(
-            (a: CourseContent, b: CourseContent) => a.id - b.id
-          ),
-          images: data.images.sort(
-            (a: CourseImages, b: CourseImages) => a.id - b.id
-          ),
+          contents: data.contents.sort((a: Content, b: Content) => a.id - b.id),
+          images: data.images.sort((a: Image, b: Image) => a.id - b.id),
           reviews: data.reviews.sort(
             (a: ReviewOfCurrentCourse, b: ReviewOfCurrentCourse) => b.id - a.id
           ),
@@ -49,6 +47,9 @@ export const CourseInfo: React.FC<Props> = ({ courses }) => {
       );
     }
   }, [courseName, currentCourse]);
+
+  const isInFavorites =
+    favourites && course && favourites.some((item) => item.id === course.id);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -71,8 +72,30 @@ export const CourseInfo: React.FC<Props> = ({ courses }) => {
 
       <div className="col-span-5 text-secondary text-grey flex items-center gap-8">
         {/* {Make correct to add to favourite} */}
-        <div className="flex items-center gap-2 cursor-pointer hover:text-primary-blue hover:font-medium transition-all">
-          <Icon icon="basil:heart-outline" width="24px" height="24px" />
+        <div
+          className="flex items-center gap-2 cursor-pointer hover:text-primary-blue hover:font-medium transition-all"
+          onClick={() => {
+            if (course) {
+              if (isInFavorites) {
+                apiDeleteCourseFromFavourites(course.id);
+              } else {
+                apiAddCourseToFavourites(course.id);
+              }
+            }
+          }}
+        >
+          <Icon
+            icon="basil:heart-solid"
+            width="24px"
+            height="24px"
+            className={classNames(
+              "stroke-primary-blue stroke-2 cursor-pointer hover:text-primary-blue transition-all",
+              {
+                "text-primary-blue": isInFavorites,
+                "text-transparent": !isInFavorites,
+              }
+            )}
+          />
           <span>Add to favourites</span>
         </div>
       </div>

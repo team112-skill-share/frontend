@@ -1,3 +1,4 @@
+import { Content, Image } from "./content";
 import { ReviewOfCurrentCourse } from "./reviews";
 
 export interface RequestCourse {
@@ -6,17 +7,6 @@ export interface RequestCourse {
   email: string;
   workField: string;
   description: string;
-}
-
-export interface CourseContent {
-  id: number;
-  name: string;
-  text: string;
-}
-
-export interface CourseImages {
-  id: number;
-  url: string;
 }
 
 export enum Format {
@@ -59,8 +49,8 @@ export interface CreateCourse {
   price: number;
   categoryId: number;
   source: string;
-  contents: Omit<CourseContent, "id">[];
-  images: Omit<CourseImages, "id">[];
+  contents: Omit<Content, "id">[];
+  images: Omit<Image, "id">[];
 }
 
 export interface CurrentCourse {
@@ -75,7 +65,7 @@ export interface CurrentCourse {
   price: number;
   categoryId: number;
   source: string;
-  contents: CourseContent[];
-  images: CourseImages[];
+  contents: Content[];
+  images: Image[];
   reviews: ReviewOfCurrentCourse[];
 }

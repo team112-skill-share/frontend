@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { ChangePassword } from "../types/user";
-import { updateUserPassword } from "../api/users";
+import { updateUserPassword } from "../api/usersApi";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import classNames from "classnames";

@@ -11,9 +11,14 @@ import { useParams } from "react-router-dom";
 type Props = {
   courses: Course[];
   categories: Categories[];
+  favourites: Course[] | undefined;
 };
 
-export const Courses: React.FC<Props> = ({ courses, categories }) => {
+export const Courses: React.FC<Props> = ({
+  courses,
+  categories,
+  favourites,
+}) => {
   const [query, setQuery] = useState("");
   const { category } = useParams();
 
@@ -85,7 +90,12 @@ export const Courses: React.FC<Props> = ({ courses, categories }) => {
 
       <div className="mx-auto grid grid-cols-1 xl:grid-cols-2 gap-x-6 gap-y-12">
         {filteredCourses.map((course) => (
-          <Card key={course.id} course={course} categories={categories} />
+          <Card
+            key={course.id}
+            course={course}
+            categories={categories}
+            favourites={favourites}
+          />
         ))}
       </div>
     </div>

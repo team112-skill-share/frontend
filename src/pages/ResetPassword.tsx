@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { RestoreData, RestorePassword } from "../types/authentification";
-import { apiResetUserPassword } from "../api/users";
+import { apiResetUserPassword } from "../api/usersApi";
 
 export const ResetPassword = () => {
   const [isVisiblePassword, setIsVisiblePassword] = useState([false, false]);

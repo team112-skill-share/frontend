@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { regexEmail } from "../assets/constants";
 import { RequestCourse } from "../types/courses";
-import { apiRequestCourse } from "../api/courses";
+import { apiRequestCourse } from "../api/coursesApi";
 import { useState } from "react";
 
 export const WorkWithUs = () => {

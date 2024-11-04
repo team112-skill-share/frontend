@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { User } from "../types/user";
-import { getUserInfo, updateUserInfo } from "../api/users";
-import { useNavigate } from "react-router-dom";
+import { updateUserInfo } from "../api/usersApi";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-export const ChangeUserDataForm = () => {
+type Props = {
+  user: User | undefined;
+};
+
+export const ChangeUserDataForm: React.FC<Props> = ({ user }) => {
+  const location = useLocation();
+  const [initialPreviousLocation] = useState(location);
+
+  const state = location.state as { previousLocation?: Location };
+  const previousLocation = state?.previousLocation || initialPreviousLocation;
+
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       email: "",
@@ -19,21 +29,15 @@ export const ChangeUserDataForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(12345);
-    getUserInfo().then((data) => {
-      console.log(data);
-      if (data) {
-        setValue("email", data.email);
-        setValue("fullName", data.fullName);
-        setValue("birthDate", data.birthDate);
-        setValue("phoneNumber", data.phoneNumber);
-      } else {
-        navigate("/login");
-      }
-    });
-  }, [navigate, setValue]);
+    if (user) {
+      setValue("email", user.email);
+      setValue("fullName", user.fullName);
+      setValue("birthDate", user.birthDate);
+      setValue("phoneNumber", user.phoneNumber);
+    }
+  }, [user, navigate, setValue, previousLocation]);
 
-  const onSubmit = (updatedUser: Omit<User, "email">) => {
+  const onSubmit = (updatedUser: Omit<User, "email" | "id" | "favourites">) => {
     const updatedInfo = {
       fullName: updatedUser.fullName ? updatedUser.fullName.trim() : "",
       birthDate: updatedUser.birthDate,

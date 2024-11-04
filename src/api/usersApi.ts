@@ -17,7 +17,7 @@ export const updateUserInfo = async ({
   fullName,
   birthDate,
   phoneNumber,
-}: Omit<User, "email">) => {
+}: Omit<User, "id" | "email" | "favourites">) => {
   try {
     await client.put("/users/me", {
       fullName: fullName,
@@ -63,6 +63,26 @@ export const apiResetUserPassword = async ({
     console.log(response.data);
   } catch (error) {
     console.log("Error:", error);
+    throw error;
+  }
+};
+
+export const apiAddCourseToFavourites = async (courseId: number) => {
+  try {
+    const response = await client.post(`/users/me/favourites/${courseId}`);
+
+    console.log("Course add to favourite: ", response.data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiDeleteCourseFromFavourites = async (courseId: number) => {
+  try {
+    const response = await client.delete(`/users/me/favourites/${courseId}`);
+
+    console.log("Course add to favourite: ", response.data);
+  } catch (error) {
     throw error;
   }
 };

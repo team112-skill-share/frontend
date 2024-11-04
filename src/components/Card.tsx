@@ -2,16 +2,25 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { Course, Format } from "../types/courses";
 import { Categories } from "../types/categories";
+import {
+  apiAddCourseToFavourites,
+  apiDeleteCourseFromFavourites,
+} from "../api/usersApi";
+import classNames from "classnames";
 
 type Props = {
   course: Course;
   categories: Categories[];
+  favourites: Course[] | undefined;
 };
 
-export const Card: React.FC<Props> = ({ course, categories }) => {
+export const Card: React.FC<Props> = ({ course, categories, favourites }) => {
   const categoryName = categories.find(
     (category) => category.id === course.categoryId
   )?.name;
+
+  const isInFavorites =
+    favourites && favourites.some((item) => item.id === course.id);
 
   return (
     <div className="w-[600px] p-4 border border-solid border-primary-blue flex flex-col gap-10 hover:bg-lightblue transition-all">
@@ -45,10 +54,23 @@ export const Card: React.FC<Props> = ({ course, categories }) => {
             className="text-grey"
           />
           <Icon
-            icon="basil:heart-outline"
+            icon="basil:heart-solid"
             width="24px"
             height="24px"
-            className="text-primary-blue"
+            className={classNames(
+              "stroke-primary-blue stroke-2 cursor-pointer hover:scale-105 hover:text-primary-blue transition-all",
+              {
+                "text-primary-blue": isInFavorites,
+                "text-transparent": !isInFavorites,
+              }
+            )}
+            onClick={() => {
+              if (isInFavorites) {
+                apiDeleteCourseFromFavourites(course.id);
+              } else {
+                apiAddCourseToFavourites(course.id);
+              }
+            }}
           />
         </div>
       </div>
@@ -63,7 +85,7 @@ export const Card: React.FC<Props> = ({ course, categories }) => {
 
           <div className="flex flex-col gap-4">
             <Link
-              to="course-info"
+              to={`/courses/${categoryName}/${course.title}`}
               className="font-libre-baskerville text-h5 uppercase hover:text-grey transition-all"
             >
               {course.title}

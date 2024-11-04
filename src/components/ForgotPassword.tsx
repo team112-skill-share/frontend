@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { apiForgotPassword } from "../api/authentification";
+import { apiForgotPassword } from "../api/authentificationApi";
 import { regexEmail } from "../assets/constants";
 
 export const ForgotPassword = () => {

@@ -6,8 +6,6 @@ export const Breadcrumbs = () => {
 
   const breadcrumbsElements = pathname.split("/").filter((item) => item !== "");
 
-  console.log(breadcrumbsElements);
-
   return (
     <div className="capitalize font-poppins text-secondary text-grey mt-10 flex items-center gap-1">
       <Link to="/home">

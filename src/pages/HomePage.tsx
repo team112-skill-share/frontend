@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 import { HomePageSectionTitle } from "../components/HomePageSectionTitle";
 import { HomePageStatsList } from "../components/StatsList";
 import { Categories } from "../types/categories";
+import { ArticleType } from "../types/articles";
 
 type Props = {
   categories: Categories[];
+  articles: ArticleType[];
 };
 
-export const HomePage: React.FC<Props> = ({ categories }) => {
+export const HomePage: React.FC<Props> = ({ categories, articles }) => {
   return (
     <div className="flex flex-col gap-16">
       <section className="w-screen relative left-1/2 -translate-x-1/2 bg-lightblue h-[600px] rounded-br-[200px] rounded-bl-[200px]">
@@ -78,29 +80,25 @@ export const HomePage: React.FC<Props> = ({ categories }) => {
             <PopularCourse />
             <PopularCourse />
             <PopularCourse />
-            <PopularCourse />
-            <PopularCourse />
           </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-4">
-        <HomePageSectionTitle type="recommended" />
+        <HomePageSectionTitle type="articles" />
 
-        <div className="flex gap-6">
-          <Link
-            to="/article"
-            className="hover:bg-white hover:scale-101 transition-all"
-          >
-            <PreArticle />
-          </Link>
-          <Link
-            to="/article"
-            className="hover:bg-white hover:scale-101 transition-all"
-          >
-            <PreArticle />
-          </Link>
-        </div>
+        <ul className="flex gap-6">
+          {articles.slice(0, 2).map((article) => (
+            <li key={article.id}>
+              <Link
+                to={`all-articles/${article.id.toString()}`}
+                className="hover:bg-white hover:scale-101 transition-all"
+              >
+                <PreArticle article={article} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="flex flex-col gap-4">

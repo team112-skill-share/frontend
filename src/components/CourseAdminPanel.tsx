@@ -2,12 +2,12 @@ import {
   apiAddCategory,
   apiDeleteCategory,
   apiGetCategories,
-} from "../api/categories";
+} from "../api/categoriesApi";
 import {
   apiAddCourse,
   apiDeleteCurrentCourse,
   apiGetCourses,
-} from "../api/courses";
+} from "../api/coursesApi";
 import { CourseType, CreateCourse, Format } from "../types/courses";
 
 export const AdminPanel = () => {

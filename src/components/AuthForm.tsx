@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { regexEmail, regexPassword, requirements } from "../assets/constants";
 import classNames from "classnames";
-import { apiLogin, apiRegister } from "../api/authentification";
+import { apiLogin, apiRegister } from "../api/authentificationApi";
 import { Link, useNavigate } from "react-router-dom";
 import { Location as RouterLocation } from "react-router-dom";
 

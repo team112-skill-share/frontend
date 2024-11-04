@@ -11,6 +11,10 @@ export const Header = () => {
   const token = localStorage.getItem("token");
 
   const location = useLocation();
+  const [initialPreviousLocation] = useState(location);
+
+  const state = location.state as { previousLocation?: Location };
+  const previousLocation = state?.previousLocation || initialPreviousLocation;
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -79,7 +83,11 @@ export const Header = () => {
           </div>
 
           <div className="flex gap-2 border border-solid border-[#bababa] rounded-xl p-2">
-            <Link to="favourites">
+            <Link
+              {...(token
+                ? { to: "favourites" }
+                : { to: "login", state: { previousLocation } })}
+            >
               <Icon
                 icon="basil:heart-solid"
                 width="24"
