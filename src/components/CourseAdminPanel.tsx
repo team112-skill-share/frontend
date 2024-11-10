@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   apiAddCategory,
   apiDeleteCategory,
@@ -5,90 +6,119 @@ import {
 } from "../api/categoriesApi";
 import {
   apiAddCourse,
+  apiChangeCurrentCourse,
   apiDeleteCurrentCourse,
   apiGetCourses,
+  apiGetCurrentCourse,
 } from "../api/coursesApi";
-import { CourseType, CreateCourse, Format } from "../types/courses";
+import {
+  CourseType,
+  CreateCourse,
+  CurrentCourse,
+  Format,
+} from "../types/courses";
+import { apiChangeImage } from "../api/imagesApi";
 
 export const AdminPanel = () => {
   const handleAddCourse = (newCourse: Omit<CreateCourse, "id">) => {
     apiAddCourse(newCourse);
   };
 
+  const [currentCourse, setCurrentCourse] = useState<CurrentCourse>();
+
   const data = {
-    author: "Mind & Body Institute",
-    title: "Introduction to Psychology: Understanding Human Behavior",
-    cardImage: "img/courses/psychology-intro-card-img.png",
-    duration: "8 weeks",
+    author: "CodeAcademy",
+    title: "JavaScript for Beginners",
+    cardImage: "img/courses/card-img.png",
+    duration: "6 weeks",
     type: CourseType.Online,
     format: Format.Group,
     certificate: true,
     trial: false,
-    price: 300,
-    categoryId: 8,
+    price: 250,
+    categoryId: 3,
     source: "",
     contents: [
       {
-        name: "",
-        text: "This foundational course provides an overview of the key concepts, theories, and research in psychology. Students will explore human behavior, cognition, emotions, and the factors influencing mental health and well-being.",
+        name: "Course Overview",
+        text: "This foundational course provides a comprehensive introduction to JavaScript, focusing on the language's essential features and uses in modern web development. Throughout the course, students will explore everything from syntax basics to building fully interactive web applications. Key topics include JavaScript variables, data types, loops, functions, and manipulating the Document Object Model (DOM) to create dynamic and engaging websites. Emphasis is placed on practical applications and problem-solving, ensuring that participants not only understand the theory but can implement solutions in real-world scenarios.",
       },
       {
-        name: "Students Interested in Psychology",
-        text: "Ideal for those looking to begin their journey in psychology or to understand the basics of human behavior.",
+        name: "Audience: Aspiring Frontend Developers",
+        text: "Ideal for beginners looking to start a career in frontend development. This course lays the groundwork for understanding core JavaScript and building interactive web experiences.",
       },
       {
-        name: "Professionals Seeking Insight",
-        text: "Perfect for individuals in other fields who wish to gain insights into psychological principles to enhance their personal and professional relationships.",
+        name: "Audience: Web Designers transitioning to Development",
+        text: "Perfect for designers who want to add interactivity to their designs, enabling them to handle both aesthetic and functional aspects of web projects.",
       },
       {
-        name: "Lifelong Learners",
-        text: "Great for anyone curious about psychology and its applications in everyday life, enhancing understanding of self and others.",
+        name: "Audience: Students and Tech Enthusiasts",
+        text: "Great for anyone interested in coding or expanding their technical skill set, providing foundational knowledge to explore further in the field of web development.",
       },
       {
-        name: "Foundations of Psychology",
-        text: "Covers the history of psychology, major psychological perspectives, and the scientific methods used in psychological research.",
+        name: "Key Feature: JavaScript Fundamentals",
+        text: "This module covers essential syntax and constructs of JavaScript, such as variables, data types, operators, and control structures. Students will understand the building blocks necessary for any JavaScript application.",
       },
       {
-        name: "Cognitive Psychology",
-        text: "Explores how people think, learn, and remember, focusing on perception, attention, memory, and problem-solving.",
+        name: "Key Feature: DOM Manipulation",
+        text: "Students learn how to interact with the Document Object Model (DOM) to dynamically update content on a webpage. This includes selecting elements, changing their properties, and modifying HTML structures to make sites interactive.",
       },
       {
-        name: "Developmental Psychology",
-        text: "Examines human development across the lifespan, including cognitive, emotional, and social development from infancy to adulthood.",
+        name: "Key Feature: Event Handling",
+        text: "This feature teaches how to respond to user interactions like clicks, text input, and keyboard actions. Students gain skills to create responsive designs that enhance user experience.",
       },
       {
-        name: "Social Psychology",
-        text: "Analyzes how individuals influence and are influenced by others, discussing topics such as group behavior, conformity, and prejudice.",
+        name: "Key Feature: Functions in JavaScript",
+        text: "In-depth look at function creation, parameters, and return values. Students will learn how to break down code into manageable chunks, making it easier to organize and reuse.",
       },
       {
-        name: "Research Methods in Psychology",
-        text: "Discusses various research methods used in psychology, including experiments, surveys, and observational studies, highlighting their strengths and weaknesses.",
+        name: "Key Feature: Practical Exercises",
+        text: "Real-world problems and coding challenges are provided to practice skills learned, helping to cement knowledge through hands-on experience.",
       },
       {
-        name: "Applications of Psychology",
-        text: "Encourages students to apply psychological concepts to real-life situations, enhancing their understanding of interpersonal dynamics and mental health.",
+        name: "Key Feature: Project Work",
+        text: "At the course’s end, students undertake a project to build an interactive web application, applying all course concepts and creating a portfolio-ready project.",
       },
       {
-        name: "Ethics in Psychology",
-        text: "Introduces the ethical considerations and dilemmas faced by psychologists, including informed consent, confidentiality, and the treatment of vulnerable populations.",
+        name: "Key Feature: Knowledge Checks",
+        text: "Each module includes quizzes and assignments to assess understanding and track progress, ensuring students grasp each concept thoroughly before moving forward.",
       },
       {
-        name: "",
-        text: "By completing this course, students will gain a solid foundation in psychology, enabling them to understand the complexities of human behavior. They will be equipped to think critically about psychological research and its implications for individuals and society.",
+        name: "Course Outcomes",
+        text: "By completing this course, students will have a strong understanding of JavaScript fundamentals, enabling them to build interactive web pages. They will be equipped to manipulate HTML elements, handle user events, and develop dynamic websites. Additionally, students will gain experience with coding structure and modular design through functions, allowing them to create organized, efficient applications. Practical exercises and a final project ensure that they’re ready to apply these skills in real projects or continue to more advanced studies in JavaScript and frontend development.",
       },
     ],
-    images: [
-      {
-        url: "img-1",
-      },
-      {
-        url: "img-2",
-      },
-      {
-        url: "img-3",
-      },
-    ],
+    images: [{ url: "img-1" }, { url: "img-2" }, { url: "img-3" }],
   };
+
+  const getCurrent = () =>
+    apiGetCurrentCourse(12).then((data) => setCurrentCourse(data));
+
+  const handleEditCourse = () => {
+    const getCurrentCourse = () => {
+      if (currentCourse) {
+        const { id, contents, images, reviews, ...rest } = currentCourse;
+
+        return {
+          ...rest,
+          images: images.map(({ id, ...imageWithoutId }) => imageWithoutId),
+          contents: contents.map(
+            ({ id, ...contentWithoutId }) => contentWithoutId
+          ),
+        };
+      }
+    };
+
+    const newCourse = getCurrentCourse();
+
+    if (newCourse) {
+      apiChangeCurrentCourse(12, {
+        ...newCourse,
+        cardImage: "/img/courses/id12/id12_1.jpg",
+      });
+    }
+  };
+
   return (
     <>
       <div className="flex gap-8">
@@ -108,6 +138,33 @@ export const AdminPanel = () => {
           onClick={() => apiDeleteCurrentCourse(8)}
         >
           Delete course
+        </button>
+
+        <button className="w-52 h-28 bg-lightblue" onClick={getCurrent}>
+          Get Current Course
+        </button>
+
+        <button className="w-52 h-28 bg-lightblue" onClick={handleEditCourse}>
+          Change Current Course
+        </button>
+
+        <button
+          className="w-52 h-28 bg-lightblue"
+          onClick={() => apiChangeImage(40, "/img/courses/id12/id12_2.jpg")}
+        >
+          Change image 2
+        </button>
+        <button
+          className="w-52 h-28 bg-lightblue"
+          onClick={() => apiChangeImage(41, "/img/courses/id12/id12_3.jpg")}
+        >
+          Change image 3
+        </button>
+        <button
+          className="w-52 h-28 bg-lightblue"
+          onClick={() => apiChangeImage(42, "/img/courses/id12/id12_4.jpg")}
+        >
+          Change image 4
         </button>
       </div>
 

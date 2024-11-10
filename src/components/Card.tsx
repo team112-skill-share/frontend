@@ -2,25 +2,31 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { Course, Format } from "../types/courses";
 import { Categories } from "../types/categories";
-import {
-  apiAddCourseToFavourites,
-  apiDeleteCourseFromFavourites,
-} from "../api/usersApi";
 import classNames from "classnames";
+import { useState } from "react";
 
 type Props = {
   course: Course;
   categories: Categories[];
   favourites: Course[] | undefined;
+  handleDeleteCourseFromFavourite: (courseId: number) => void;
+  handleAddCourseToFavourites: (courseId: number) => void;
 };
 
-export const Card: React.FC<Props> = ({ course, categories, favourites }) => {
+export const Card: React.FC<Props> = ({
+  course,
+  categories,
+  favourites,
+  handleDeleteCourseFromFavourite,
+  handleAddCourseToFavourites,
+}) => {
+  const [isInFavorites, setIsInFavorites] = useState(
+    !!favourites && favourites.some((item) => item.id === course.id)
+  );
+
   const categoryName = categories.find(
     (category) => category.id === course.categoryId
   )?.name;
-
-  const isInFavorites =
-    favourites && favourites.some((item) => item.id === course.id);
 
   return (
     <div className="w-[600px] p-4 border border-solid border-primary-blue flex flex-col gap-10 hover:bg-lightblue transition-all">
@@ -66,9 +72,11 @@ export const Card: React.FC<Props> = ({ course, categories, favourites }) => {
             )}
             onClick={() => {
               if (isInFavorites) {
-                apiDeleteCourseFromFavourites(course.id);
+                handleDeleteCourseFromFavourite(course.id);
+                setIsInFavorites(false);
               } else {
-                apiAddCourseToFavourites(course.id);
+                handleAddCourseToFavourites(course.id);
+                setIsInFavorites(true);
               }
             }}
           />
@@ -79,7 +87,7 @@ export const Card: React.FC<Props> = ({ course, categories, favourites }) => {
         <div className="flex justify-between gap-6">
           <img
             className="border border-blue w-[270px] h-60 object-contain"
-            src={"img/courses/card-img.png"}
+            src={`${course.cardImage}`}
             alt="course img"
           />
 

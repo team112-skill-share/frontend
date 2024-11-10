@@ -10,7 +10,7 @@ type Props = {
 export const AllArticles: React.FC<Props> = ({ articles }) => {
   return (
     <div className="flex flex-col gap-10 mt-10">
-      <h1 className="text-h1">All Articles</h1>
+      <h3 className="text-h3 font-libre-baskerville uppercase">All Articles</h3>
       <ArticlesAdminPanel />
 
       <ul className="flex gap-6">

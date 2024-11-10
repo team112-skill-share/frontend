@@ -11,7 +11,7 @@ export const SocialsList = () => {
               icon={icon}
               width="32px"
               height="32px"
-              className="text-grey50 hover:text-grey hover:scale-101 transition-all"
+              className="text-grey50 hover:text-primary-blue hover:scale-101 transition-all"
             />
           </a>
         </li>

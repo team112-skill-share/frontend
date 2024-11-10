@@ -71,7 +71,8 @@ export const apiAddCourseToFavourites = async (courseId: number) => {
   try {
     const response = await client.post(`/users/me/favourites/${courseId}`);
 
-    console.log("Course add to favourite: ", response.data);
+    console.log("Course add to favourites: ", response.data);
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -81,7 +82,7 @@ export const apiDeleteCourseFromFavourites = async (courseId: number) => {
   try {
     const response = await client.delete(`/users/me/favourites/${courseId}`);
 
-    console.log("Course add to favourite: ", response.data);
+    console.log("Course delete from favourites: ", response.data);
   } catch (error) {
     throw error;
   }

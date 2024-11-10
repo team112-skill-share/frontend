@@ -6,18 +6,22 @@ import { SearchInput } from "../components/SearchInput";
 import { Course } from "../types/courses";
 import { Categories } from "../types/categories";
 import { useParams } from "react-router-dom";
-// import { AdminPanel } from "../components/AdminPanel";
+// import { AdminPanel } from "../components/CourseAdminPanel";
 
 type Props = {
   courses: Course[];
   categories: Categories[];
   favourites: Course[] | undefined;
+  handleDeleteCourseFromFavourite: (courseId: number) => void;
+  handleAddCourseToFavourites: (courseId:number) => void;
 };
 
 export const Courses: React.FC<Props> = ({
   courses,
   categories,
   favourites,
+  handleDeleteCourseFromFavourite,
+  handleAddCourseToFavourites
 }) => {
   const [query, setQuery] = useState("");
   const { category } = useParams();
@@ -95,6 +99,8 @@ export const Courses: React.FC<Props> = ({
             course={course}
             categories={categories}
             favourites={favourites}
+            handleDeleteCourseFromFavourite={handleDeleteCourseFromFavourite}
+            handleAddCourseToFavourites={handleAddCourseToFavourites}
           />
         ))}
       </div>

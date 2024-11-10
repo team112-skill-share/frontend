@@ -8,7 +8,7 @@ export const EmailsList = () => {
           <span className="text-white">{label}</span>
           <a
             href={`mailto:${email}`}
-            className="text-grey50 hover:text-grey hover:scale-101 transition-all"
+            className="text-grey50 hover:text-primary-blue hover:scale-101 transition-all"
             title="Write email for us"
           >
             {email}

@@ -74,3 +74,30 @@ export const apiDeleteCurrentCourse = async (courseId: number) => {
     throw error;
   }
 };
+
+export const apiChangeCurrentCourse = async (
+  courseId: number,
+  data: Omit<CreateCourse, "id">
+) => {
+  try {
+    const response = await client.put(`/courses/${courseId}`, {
+      author: data.author,
+      title: data.title,
+      cardImage: data.cardImage,
+      duration: data.duration,
+      type: data.type,
+      format: data.format,
+      certificate: data.certificate,
+      trial: data.trial,
+      price: data.price,
+      categoryId: data.categoryId,
+      source: data.source,
+      contents: data.contents,
+      images: data.images,
+    });
+
+    console.log("Course success edited:", response.data);
+  } catch (error) {
+    throw error;
+  }
+};

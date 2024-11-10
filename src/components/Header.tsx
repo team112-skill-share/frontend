@@ -92,7 +92,7 @@ export const Header = () => {
                 icon="basil:heart-solid"
                 width="24"
                 height="24"
-                className="text-transparent stroke-primary-blue cursor-pointer hover:scale-105 hover:text-primary-blue transition-all"
+                className="text-transparent stroke-grey50 cursor-pointer hover:scale-105 hover:text-primary-blue hover:stroke-primary-blue transition-all"
               />
             </Link>
 
@@ -101,7 +101,7 @@ export const Header = () => {
                 icon="basil:user-solid"
                 width="24px"
                 height="24px"
-                className="text-transparent stroke-grey50 cursor-pointer hover:scale-105 hover:text-grey50 transition-all"
+                className="text-transparent stroke-grey50 cursor-pointer hover:scale-105 hover:text-primary-blue hover:stroke-primary-blue transition-all"
                 onClick={handleOpenMenu}
               />
             </button>

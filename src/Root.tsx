@@ -22,7 +22,11 @@ import { Course } from "./types/courses";
 import { apiGetCourses } from "./api/coursesApi";
 import { apiGetCategories } from "./api/categoriesApi";
 import { Categories } from "./types/categories";
-import { getUserInfo } from "./api/usersApi";
+import {
+  apiAddCourseToFavourites,
+  apiDeleteCourseFromFavourites,
+  getUserInfo,
+} from "./api/usersApi";
 import { User } from "./types/user";
 import { client } from "./api/httpClient";
 import { AllArticles } from "./pages/AllArticles";
@@ -77,6 +81,34 @@ export const Root = () => {
     });
   }, []);
 
+  const handleDeleteCourseFromFavourite = (courseId: number) => {
+    setUser(
+      (prev) =>
+        prev && {
+          ...prev,
+          favourites: prev.favourites.filter((item) => item.id !== courseId),
+        }
+    );
+    apiDeleteCourseFromFavourites(courseId);
+  };
+
+  const handleAddCourseToFavourites = (courseId: number) => {
+    if (user?.favourites.some((item) => item.id === courseId)) {
+      return;
+    }
+
+    apiAddCourseToFavourites(courseId).then((data) =>
+      setUser((prev) =>
+        prev
+          ? {
+              ...prev,
+              favourites: [data, ...prev.favourites],
+            }
+          : prev
+      )
+    );
+  };
+
   return (
     <>
       <Routes location={previousLocation || location}>
@@ -94,6 +126,10 @@ export const Root = () => {
                   courses={courses}
                   categories={categories}
                   favourites={user && user.favourites}
+                  handleDeleteCourseFromFavourite={
+                    handleDeleteCourseFromFavourite
+                  }
+                  handleAddCourseToFavourites={handleAddCourseToFavourites}
                 />
               }
             />
@@ -104,6 +140,10 @@ export const Root = () => {
                   courses={courses}
                   categories={categories}
                   favourites={user && user.favourites}
+                  handleDeleteCourseFromFavourite={
+                    handleDeleteCourseFromFavourite
+                  }
+                  handleAddCourseToFavourites={handleAddCourseToFavourites}
                 />
               }
             />
@@ -124,6 +164,10 @@ export const Root = () => {
               <Favourites
                 categories={categories}
                 favourites={user && user.favourites}
+                handleDeleteCourseFromFavourite={
+                  handleDeleteCourseFromFavourite
+                }
+                handleAddCourseToFavourites={handleAddCourseToFavourites}
               />
             }
           />

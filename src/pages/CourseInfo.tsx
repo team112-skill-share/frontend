@@ -157,7 +157,7 @@ export const CourseInfo: React.FC<Props> = ({ courses, favourites }) => {
       </h4>
 
       <img
-        src={`${course?.images[0]}`}
+        src={`${course?.images[0].url}`}
         alt="coursepage 1"
         className="-col-start-1 -col-end-7 row-span-2 w-[596px] h-[336px] object-contain"
       />
@@ -179,7 +179,7 @@ export const CourseInfo: React.FC<Props> = ({ courses, favourites }) => {
       </div>
 
       <img
-        src={`${course?.images[1]}`}
+        src={`${course?.images[1].url}`}
         alt="coursepage 2"
         className="col-start-1 col-end-4 row-span-2"
       />
@@ -255,7 +255,7 @@ export const CourseInfo: React.FC<Props> = ({ courses, favourites }) => {
       </h5>
 
       <img
-        src={`${course?.images[2]}`}
+        src={`${course?.images[2].url}`}
         alt="coursepage 3"
         className="col-span-6 row-span-2 object-contain h-80"
       />
